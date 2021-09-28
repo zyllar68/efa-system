@@ -6,7 +6,8 @@
       "@pages": ["./pages"],
       "@styles": ["./_styles/style.scss"],
       "@fonts": ["./assets/font"],
-      "@images": ["./assets/images"]
+      "@images": ["./assets/images"],
+      "@icons": ["./assets/icons"]
     }
   },
   "exclude": ["node_modules"]
