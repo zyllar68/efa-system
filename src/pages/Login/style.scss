@@ -1,0 +1,56 @@
+@import "@styles";
+
+.Login {
+  background-color: $primary;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &__card {
+    background-color: $white;
+    width: 800px;
+    padding: 1.5rem;
+    border-radius: $small;
+    -webkit-box-shadow: 5px 7px 10px 1px rgba(0,0,0,0.37); 
+    box-shadow: 5px 7px 10px 1px rgba(0,0,0,0.37);
+
+    &-title{
+      padding: 2rem;
+      h2 {
+        font-weight: lighter;
+        text-align: center;
+      }
+    }
+
+    &-logo {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      img {height: 200px;}
+
+      border-right: 1px solid $lightGray;
+      height: 100%;
+    }
+
+    &-button {
+      text-align: center;
+      button {
+        width: 100%;
+      }
+    }
+
+    .error-message{
+      font-size: $small;
+      color: $warning;
+      margin-top: 1rem;
+    }
+  }
+
+}
+
+.right-bordered {
+  &:after {
+    content: "asdasd";
+  }
+}

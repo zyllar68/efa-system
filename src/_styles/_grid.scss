@@ -1,0 +1,60 @@
+.row {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+
+  .col {
+    flex: 1 1;
+    box-sizing: border-box;
+    margin: 1% 1%;
+
+    &-span-2 {
+      flex-basis: 16.66666666666667%;
+      max-width: 16.66666666666667%;
+    }
+
+    &-span-3 {
+      flex-basis: 23%;
+      max-width: 23%;
+    }
+
+    &-span-4{
+      flex-basis: 31%;
+      max-width: 31%;
+    }
+
+    &-span-6 {
+      flex-basis: 48%;
+      max-width: 48%;
+    }
+  }
+
+
+  @media only screen and (max-width: 843px) {
+    .col-span-2 {
+      flex-basis: 25%;
+    }
+  }
+
+  @media only screen and (max-width: 717px) {
+    .col-span-2,
+    .col-span-3,
+    .col-span-4,
+    .col-span-5,
+    .col-span-6 {
+      flex-basis: 50%;
+      max-width: 100%;
+    }
+  }
+
+  @media only screen and (max-width: 414px) {
+    .col-span-2,
+    .col-span-3,
+    .col-span-4,
+    .col-span-5,
+    .col-span-6 {
+      flex-basis: 100%;
+      max-width: 100%;
+    }
+  }
+}
