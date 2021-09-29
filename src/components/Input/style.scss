@@ -16,3 +16,22 @@
     }
   }
 }
+
+.dimension-input {
+  display: flex;
+  align-items: center;
+  input {
+    border: 0;
+    border-bottom: .7px solid $lightGray;
+    width: 100%;
+    padding: .5rem;
+    border-radius: 0px;
+    -webkit-transition: 0.5s;
+    transition: 0.5s;
+
+    &:active, &:focus {
+      outline: 0;
+      border-color: $gray !important;
+    }
+  }
+}

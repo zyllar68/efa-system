@@ -4,10 +4,11 @@ import "./style.scss";
 const Button = ({
   title,
   primary,
-  onClick
+  onClick,
+  style
 }) => {
   return (
-    <button className={classNames("Button", {
+    <button style={style} className={classNames("Button", {
       "primary": primary
     })}
     onClick={onClick}>

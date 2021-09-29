@@ -1,3 +1,4 @@
+import classNames from "classnames";
 import "./style.scss";
 
 const Input = ({
@@ -5,10 +6,13 @@ const Input = ({
   type,
   value,
   placeholder,
-  errorMessage
+  errorMessage,
+  dimensionInput
 }) => {
   return (
-    <div className="Input">
+    <div className={classNames("Input", {
+      "dimension-input": dimensionInput
+    })}>
       { label && <label>{label}</label> }
       <input type={type} value={value} placeholder={placeholder} />
       {errorMessage && <p>{errorMessage}</p>}

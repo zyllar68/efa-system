@@ -1,0 +1,13 @@
+@import "@styles";
+
+.Parcels {
+  &__content {
+    margin-top: 3rem;
+  }
+
+  &__search {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+}

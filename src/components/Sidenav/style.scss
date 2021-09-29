@@ -29,9 +29,9 @@
 
     &-item {
       display: flex;
-      align-items: center;
-      padding-top: .7rem;
-      padding-bottom: .7rem;
+
+      padding-top: .8rem;
+      padding-bottom: .8rem;
       padding-left: 2rem;
 
       &:hover {
@@ -53,6 +53,7 @@
       }
       p {
         margin-left: .8rem;
+        margin-top: .3rem;
         color: $white;
         font-weight: 600;
       }

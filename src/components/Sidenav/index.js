@@ -14,7 +14,7 @@ const Sidenav = () => {
       </div>
       <div className="Sidenav__links">
         <NavLink
-         activeClassName="active-link" to="/" className="Sidenav__links-item">
+         activeClassName="active-link" exact to="/" className="Sidenav__links-item">
           <BoxIcon />
           <p>Parcels</p>
         </NavLink>
