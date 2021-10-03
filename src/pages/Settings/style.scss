@@ -14,4 +14,32 @@
     justify-content: space-between;
     align-items: center;
   }
+
+  &__admin-settings {
+
+    h4{
+      padding: 0;
+      margin: 0;
+      margin-top: 2rem;
+    }
+
+    button {
+      float: right;
+      margin-top: .7rem;
+      width: 150px;
+    }
+  }
+}
+
+.admin-error {
+  color: red;
+  font-size: $small;
+  margin-left: 0.7rem;
+}
+
+.user-error {
+  color: red;
+  font-size: $small;
+  margin-top: 1rem;
+  margin-bottom: 0;
 }

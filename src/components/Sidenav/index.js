@@ -4,7 +4,11 @@ import { NavLink } from 'react-router-dom';
 import {  ReactComponent as BoxIcon } from "@icons/box.svg";
 import {  ReactComponent as SettingsIcon } from "@icons/settings.svg";
 
-const Sidenav = () => {
+const Sidenav = ({
+  accountType
+}) => {
+
+  console.log(accountType)
   return (
     <div className="Sidenav">
       <div className="Sidenav__header">
@@ -18,11 +22,14 @@ const Sidenav = () => {
           <BoxIcon />
           <p>Parcels</p>
         </NavLink>
-        <NavLink
-         activeClassName="active-link" to="/settings" className="Sidenav__links-item">
-          <SettingsIcon />
-          <p>Settings</p>
-        </NavLink>
+        {
+          accountType === '1' &&
+          <NavLink
+            activeClassName="active-link" to="/settings" className="Sidenav__links-item">
+            <SettingsIcon />
+            <p>Settings</p>
+          </NavLink>
+        }
       </div>
     </div>  
   )

@@ -1,26 +1,59 @@
 import '@styles';
+import { useState, useEffect } from "react";
 import { Login, Settings, Parcels } from "@pages";
 import { Sidenav } from "@components";
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 
 function App() {
+
+  const [auth, setAuth] = useState(false);
+  const [accountType, setAccountType] = useState();
+
+  useEffect(() => {
+    const token = localStorage.getItem("efa_token");
+    setAccountType(localStorage.getItem("account_type"));
+
+    if(token !== null){
+      setAuth(true);
+    }else{
+      setAuth(false);
+    }
+  }, [auth])
+
   return (
-    <Router>
-      <div style={{display: 'flex'}}>
-        <Sidenav />
-        <div style={{padding: '3rem', width: '100%'}}>
-          <Switch>
-            <Route path="/settings">
-              <Settings />
-            </Route>
-            <Route exact path="/">
-              <Parcels />
-            </Route>
-          </Switch>
-        </div>
-      </div>
-    </Router>
+    <>
+      {
+        !auth ?  
+        <Login setAuth={setAuth} />
+        : <Router>
+            <div style={{display: 'flex'}}>
+              <Sidenav 
+                accountType={accountType}
+              />
+              <div style={{padding: '3rem', width: '100%'}}>
+                {
+                  accountType === 2 ?
+                  ( <Switch>
+                      <Route exact path="/">
+                        <Parcels />
+                      </Route>
+                    </Switch> )
+                  :( <Switch>
+                      <Route path="/settings">
+                        <Settings />
+                      </Route>
+                      <Route exact path="/">
+                        <Parcels />
+                      </Route>
+                    </Switch> )
+                }
+
+              </div>
+            </div>
+          </Router> 
+      }
+    </>
   );
 }
 

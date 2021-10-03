@@ -7,14 +7,15 @@ const Input = ({
   value,
   placeholder,
   errorMessage,
-  dimensionInput
+  dimensionInput,
+  onChange
 }) => {
   return (
     <div className={classNames("Input", {
       "dimension-input": dimensionInput
     })}>
       { label && <label>{label}</label> }
-      <input type={type} value={value} placeholder={placeholder} />
+      <input type={type} value={value} placeholder={placeholder} onChange={onChange} />
       {errorMessage && <p>{errorMessage}</p>}
     </div>
   )

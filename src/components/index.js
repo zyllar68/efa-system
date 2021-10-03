@@ -7,5 +7,5 @@ export {
   Input,
   Button,
   Sidenav,
-  TableComponent
+  TableComponent,
 }

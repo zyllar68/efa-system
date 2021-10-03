@@ -7,7 +7,8 @@
       "@styles": ["./_styles/style.scss"],
       "@fonts": ["./assets/font"],
       "@images": ["./assets/images"],
-      "@icons": ["./assets/icons"]
+      "@icons": ["./assets/icons"],
+      "@api": ["./api"]
     }
   },
   "exclude": ["node_modules"]

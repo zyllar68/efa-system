@@ -1,14 +1,16 @@
 @import "@styles";
 
 .Button {
-  padding: .7rem;
+  padding: .5rem;
   min-width: 6.25rem;
   border-radius: $small;
-  margin: .3rem 0;
   color: $white;
   cursor: pointer;
 }
 
 .primary {
   background-color: $primary;
+  &:hover {
+    opacity: .8;
+  }
 }
