@@ -5,10 +5,11 @@ const Button = ({
   title,
   primary,
   onClick,
-  style
+  style,
+  type
 }) => {
   return (
-    <button style={style} className={classNames("Button", {
+    <button type={type} style={style} className={classNames("Button", {
       "primary": primary
     })}
     onClick={onClick}>

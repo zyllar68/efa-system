@@ -8,14 +8,17 @@ const Input = ({
   placeholder,
   errorMessage,
   dimensionInput,
-  onChange
+  onChange,
+  name,
+  id,
+  readOnly
 }) => {
   return (
     <div className={classNames("Input", {
       "dimension-input": dimensionInput
     })}>
       { label && <label>{label}</label> }
-      <input type={type} value={value} placeholder={placeholder} onChange={onChange} />
+      <input name={name} id={id} type={type} value={value} placeholder={placeholder} onChange={onChange} readOnly={readOnly}/>
       {errorMessage && <p>{errorMessage}</p>}
     </div>
   )

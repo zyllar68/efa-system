@@ -3,11 +3,41 @@
 .Parcels {
   &__content {
     margin-top: 3rem;
+
+    table {
+      margin-top: 2rem;
+    }
   }
 
   &__search {
     display: flex;
     justify-content: space-between;
     align-items: center;
+  }
+}
+
+.hide {
+  display: none;
+}
+
+.EditParcel {
+  &__form{
+    margin-top: 3rem;
+  }
+}
+
+.remove-icon {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  svg{
+    fill: $warning;
+  }
+}
+
+.add-icon {
+  cursor: pointer;
+  svg{
+    fill: $primary;
   }
 }

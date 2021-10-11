@@ -3,6 +3,7 @@
 .Sidenav {
   background-color: $primary;
   height: 100vh;
+  max-height: 100vh;
   width: 257px;
 
   &__header {
@@ -56,6 +57,22 @@
         margin-top: .3rem;
         color: $white;
         font-weight: 600;
+      }
+    }
+  }
+
+  &__bottomLinks {
+    position: fixed;
+    bottom: 0;
+    width: 257px;
+
+    a {
+      background-color: transparent;
+      p {
+        color: $white;
+      }
+      svg {
+        fill: $white !important;
       }
     }
   }

@@ -146,7 +146,6 @@ const Settings = () => {
         const res = await readAdmin();
         setAdminInfo(res.data);
       } catch (error) {
-        console.log(error);
         alert('Something went wrong. Please contact your provider.');
       }
     })();

@@ -1,6 +1,6 @@
 import '@styles';
 import { useState, useEffect } from "react";
-import { Login, Settings, Parcels } from "@pages";
+import { Login, Settings, Parcels, EditParcel } from "@pages";
 import { Sidenav } from "@components";
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
@@ -35,16 +35,22 @@ function App() {
                 {
                   accountType === 2 ?
                   ( <Switch>
-                      <Route exact path="/">
+                      <Route exact path="/parcels">
                         <Parcels />
+                      </Route>
+                      <Route path="/parcels/:id">
+                        <EditParcel />
                       </Route>
                     </Switch> )
                   :( <Switch>
                       <Route path="/settings">
                         <Settings />
                       </Route>
-                      <Route exact path="/">
+                      <Route exact path="/parcels">
                         <Parcels />
+                      </Route>
+                      <Route path="/parcels/:id">
+                        <EditParcel />
                       </Route>
                     </Switch> )
                 }

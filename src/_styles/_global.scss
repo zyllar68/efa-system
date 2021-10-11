@@ -81,3 +81,9 @@ p{
 .capital-first {
   text-transform: capitalize;
 }
+
+.error-message{
+  font-size: $small;
+  color: $warning;
+  margin-top: 1rem;
+}
