@@ -3,6 +3,7 @@ import { useState } from "react";
 import logo from "@images/logo.jpg";
 import { Input, Button } from "@components";
 import { authUser } from "@api/user_account";
+import { useHistory } from 'react-router-dom';
 
 const Login = ({
   setAuth
@@ -10,24 +11,20 @@ const Login = ({
   const [username, setUsername] = useState('admin');
   const [password, setPassword] = useState('admin');
   const [errorMessage, setErrorMessage] = useState('');
+  const history = useHistory();
 
-  const onSubmit = async e => {
-    e.preventDefault();
-
+  const onSubmit = async () => {
     if(username === '' || password === ''){
       setErrorMessage('Please input your username/password!');
     }else{
       try {
 
-        const payload = {username, password}
-
+        const payload = {username, password};
         const res = await authUser(payload);
 
         window.localStorage.setItem('efa_token', res.data.user_info.token);
         window.localStorage.setItem('account_type', res.data.user_info.account_type);
-
         setAuth(true);
-
       } catch (error) {
         console.log(`message: ${error}`);
         setErrorMessage(`${error}`);
@@ -47,7 +44,7 @@ const Login = ({
           <div className="col col-span-6">
             <div className="Login__card-title">
               <h2>Login</h2>
-              <form onSubmit={onSubmit}>
+              <form>
                 <Input 
                   label="Username"
                   value={username}
@@ -64,7 +61,7 @@ const Login = ({
                   <Button 
                     primary
                     title="Login"
-                    type="submit"
+                    onClick={onSubmit}
                   />
                 </div>
               </form>

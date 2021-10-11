@@ -1,15 +1,22 @@
 import "./style.scss";
 import Logo from "@images/logo.jpg";
+import { useHistory } from 'react-router-dom';
 import { NavLink } from 'react-router-dom';
 import {  ReactComponent as BoxIcon } from "@icons/box.svg";
 import {  ReactComponent as SettingsIcon } from "@icons/settings.svg";
 import {  ReactComponent as LogoutIcon } from "@icons/logoutIcon.svg";
 
 const Sidenav = ({
-  accountType
+  accountType,
+  logOut
 }) => {
 
-  console.log(accountType)
+  const history = useHistory();
+
+  const onLogOut = () => {
+    logOut();
+  }
+
   return (
     <div className="Sidenav">
       <div className="Sidenav__header">
@@ -19,7 +26,7 @@ const Sidenav = ({
       </div>
       <div className="Sidenav__links">
           <NavLink
-          activeClassName="active-link" to="/parcels" className="Sidenav__links-item">
+          activeClassName="active-link" exact to="/" className="Sidenav__links-item">
             <BoxIcon />
             <p>Parcels</p>
           </NavLink>
@@ -34,7 +41,8 @@ const Sidenav = ({
         </div>
       <div className="Sidenav__bottomLinks">
         <NavLink
-        activeClassName="active-link" to="/" className="Sidenav__links-item">
+        activeClassName="active-link" to="/" className="Sidenav__links-item"
+        onClick={onLogOut}>
           <LogoutIcon />
           <p>Logout</p>
         </NavLink>

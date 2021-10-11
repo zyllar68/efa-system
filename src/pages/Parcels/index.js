@@ -417,7 +417,7 @@ const Parcels = () => {
                     <td>{values.sender.full_name}</td>
                     <td>{values.consignee.full_name}</td>
                     <td style={{color: '#437fc7', cursor: 'pointer', textAlign: 'center'}}
-                      onClick={() => history.push(`/parcels/${values._id}`)}>
+                      onClick={() => history.push(`/${values._id}`)}>
                       View
                     </td>
                   </tr>
