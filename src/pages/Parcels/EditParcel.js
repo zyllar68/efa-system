@@ -2,9 +2,8 @@ import "./style.scss";
 import { useState, useEffect } from "react";
 import { Row, Col } from "react-bootstrap";
 import { Input, Button } from "@components";
-import { readParcel,  } from "@api/parcel";
 import { useRouteMatch, useHistory } from 'react-router-dom';
-import { updateParcel } from "api/parcel";
+import { updateParcel, readParcel } from "api/parcel";
 
 const initialState = {
   sender: {

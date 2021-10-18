@@ -190,6 +190,7 @@
 }
 
 .row-print {
+  min-width: 1000px;
   @media print {
     position: absolute;
     top: 0;
