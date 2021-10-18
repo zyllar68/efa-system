@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { Row, Col } from "react-bootstrap";
 import { Input, Button } from "@components";
 import { readParcel,  } from "@api/parcel";
-import { useRouteMatch } from 'react-router-dom';
+import { useRouteMatch, useHistory } from 'react-router-dom';
 import { updateParcel } from "api/parcel";
 
 const initialState = {
@@ -32,6 +32,7 @@ const initialState = {
 const EditParcel = () => {
 
   const match = useRouteMatch();
+  const history = useHistory();
 
   const { id } = match.params;
 
@@ -116,10 +117,6 @@ const EditParcel = () => {
     }
   }
 
-  const onPrint = async () => {
-    window.print();
-  }
-
   return (
     <div className="EditParcel">
       <div className="EditParcel__header">
@@ -127,7 +124,7 @@ const EditParcel = () => {
         <Button 
           primary 
           title="Print" style={{width: '150px'}}
-          onClick={() => onPrint()} />
+          onClick={() => history.push(`/print/${id}`)} />
       </div>
       <div className="EditParcel__form">
         <div className="EditParcel__form-header">

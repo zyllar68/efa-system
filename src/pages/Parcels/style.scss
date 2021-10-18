@@ -55,7 +55,152 @@
   }
 }
 
+
 @page {
   size: A4;
   margin: 0;
+  padding: 0;
+}
+
+.PrintBody {
+  .Print {
+    width: 100%;
+    flex: 1;
+    padding: 1rem;
+    margin: .5rem;
+    @media print {
+      border: 1px solid black;
+      display: flex;
+      flex-direction: row;
+    }
+  
+    @page {
+      size: a4 landscape;
+    }
+  
+    &__buttonHeader {
+      // float: right;
+    }
+  
+    &__content {
+      margin-top: 3rem;
+      @media print {
+        margin: 0;
+      }
+      &-header{
+        img {
+          height: 60px;
+          @media print {
+            height: 20px;
+          }
+        }
+      }
+    }
+  
+    &__headerText {
+      text-align: center;
+      margin-left: 3rem;
+      @media print {
+        font-size: 6px;
+      }
+      p{
+        margin: 0;
+      }
+    }
+  
+    &__parcelNum {
+      border: 1px solid black;
+      padding: .5rem;
+      font-size: $small;
+      text-align: center;
+      margin-top: 1rem;
+    }
+    
+    &__body {
+      h6 {
+        @media print {
+          font-size: 8px;
+        }
+      }
+      p {
+        font-size: 14px;
+        margin: 0;
+        @media print {
+          font-size: 8px;
+        }
+      }
+    }
+
+  }
+}
+
+.qr-code {
+  float: right;
+}
+
+.ship-date {
+  text-align: right;
+  span {
+    text-decoration: underline;
+  }
+  @media print {
+    font-size: 8px;
+    margin-top: .2rem;
+  }
+}
+
+.print-table {
+  background-color: transparent;
+  table-layout: fixed ;
+  width: 100% ;
+  border: 1px solid black;
+  margin-top: 1rem;
+  @media print {
+    font-size: 8px;
+  }
+  thead {
+    th{
+      border: 1px solid black;
+      text-align: center;
+      padding: .5rem;
+    }
+  }
+  tbody{
+    td{
+      border: 1px solid black;
+      padding-left: .5rem;
+      @media print {
+        padding: 0;
+        font-size: 8px;
+      }
+    }
+  }
+}
+
+.table-blank {
+  td {
+    padding: .5rem !important;
+  }
+}
+
+.small-font{
+  @media print {
+    font-size: 8px;
+  }
+}
+
+.row-print {
+  @media print {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 18px;
+  }
+}
+
+.hidden {
+  visibility: hidden;
+  @media print {
+    visibility: visible;
+  }
 }

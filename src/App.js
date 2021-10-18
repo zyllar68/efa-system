@@ -1,6 +1,6 @@
 import '@styles';
 import { useState, useEffect } from "react";
-import { Login, Settings, Parcels, EditParcel } from "@pages";
+import { Login, Settings, Parcels, EditParcel, Print } from "@pages";
 import { Sidenav } from "@components";
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
@@ -45,6 +45,9 @@ function App() {
                     <Route exact path="/">
                       <Parcels />
                     </Route>
+                    <Route path="/print/:id">
+                      <Print />
+                    </Route>
                     <Route path="/:id">
                       <EditParcel />
                     </Route>
@@ -55,6 +58,9 @@ function App() {
                     </Route>
                     <Route exact path="/">
                       <Parcels />
+                    </Route>
+                    <Route path="/print/:id">
+                      <Print />
                     </Route>
                     <Route path="/:id">
                       <EditParcel />

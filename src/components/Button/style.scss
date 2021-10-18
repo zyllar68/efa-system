@@ -6,6 +6,11 @@
   border-radius: $small;
   color: $white;
   cursor: pointer;
+
+  @media print {
+    display: none;
+  }
+
 }
 
 .primary {
