@@ -21,8 +21,21 @@
 }
 
 .EditParcel {
+
+  &__header{
+    display: flex;
+    justify-content: space-between;
+    @media print {
+      display: none;
+    }
+  }
+
   &__form{
     margin-top: 3rem;
+    &-header {
+      display: flex;
+      justify-content: space-between;
+    }
   }
 }
 
@@ -40,4 +53,9 @@
   svg{
     fill: $primary;
   }
+}
+
+@page {
+  size: A4;
+  margin: 0;
 }

@@ -2,9 +2,11 @@ import "./style.scss";
 import { useState, useEffect } from "react";
 import { TableComponent, Input, Button } from "@components";
 import {Row, Col, Modal} from 'react-bootstrap';
-import { readAdmin, createUser, readAll, readUser, updateAdmin, updateUser } from "@api/user_account";
+import { readAdmin, createUser, readAll, readUser, updateAdmin, updateUser, checkUser, deleteUser } from "@api/user_account";
+import { ReactComponent as ViewIcon } from "@icons/viewIcon.svg";
+import { ReactComponent as DeleteIcon } from "@icons/deleteIcon.svg";
 
-const thData = ["Full name", ""];
+const thData = ["Full name", "View", "Delete"];
 
 const EditModal = ({
   user,
@@ -103,9 +105,9 @@ const AddModal = ({
             />
           </Col>
         </Row>
-        <p className="user-error">{newUserError}</p>
       </Modal.Body>
-      <Modal.Footer>
+      <Modal.Footer style={{justifyContent: 'space-between'}}>
+        <p className="user-error">{newUserError}</p>
         <Button primary title="Save" onClick={onClick} />
       </Modal.Footer>
     </Modal>
@@ -172,10 +174,15 @@ const Settings = () => {
       if(state.full_name === ""  || state.username === "" || state.password === ""){
         setNewUserError('Please input all required fields!');
       }else{
-        const res = await createUser(state);
-        if(res.status === 200){
-          setShowAdd(false);
-          alert('New user Saved!')
+        const check = await checkUser({ 'username': state.username });
+        if(check.data === 'username is already used!') {
+          setNewUserError(check.data);
+        }else{
+          const res = await createUser(state);
+          if(res.status === 200){
+            setShowAdd(false);
+            alert('New user Saved!')
+          }
         }
       }
     } catch (error) {
@@ -233,12 +240,34 @@ const Settings = () => {
       setEditUserError('Please input all required fields!');
     }else{
       try {
-        await updateUser(user);
-        alert('Edit Saved!');
-        setShowEdit(false)
+        const getUser = await readUser(user._id);
+        if(getUser.data.username === user.username){
+            await updateUser(user);
+            alert('Edit Saved!');
+            setShowEdit(false);
+        }else{
+          const check = await checkUser({ 'username': user.username });
+          if(check.data === 'username is already used!') {
+            setEditUserError(check.data);
+          }else{
+            await updateUser(user);
+            alert('Edit Saved!');
+            setShowEdit(false)
+          }
+        }
       } catch (error) {
         alert('Something went wrong. Please contact your service provider.');
       }
+    }
+  }
+
+  const onDeleteUser = async id => {
+    try { 
+      const res = await deleteUser(id);
+      console.log(res.data)
+    } catch (error) {
+      console.log(error);
+      alert('Something went wrong. Please contact your provider.');
     }
   }
 
@@ -293,9 +322,15 @@ const Settings = () => {
                 return(
                   <tr key={i}>
                     <td>{full_name}</td>
-                    <td style={{color: '#437fc7', cursor: 'pointer', textAlign: 'center'}}
-                      onClick={() => onView(_id)}>
-                      View
+                    <td className="view-td">
+                      <div className="icon" onClick={() => onView(_id)}>
+                        <ViewIcon />
+                      </div>
+                    </td>
+                    <td className="view-td">
+                      <div className="icon" onClick={() => onDeleteUser(_id)}>
+                        <DeleteIcon />
+                      </div>
                     </td>
                   </tr>
                 );

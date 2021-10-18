@@ -6,6 +6,17 @@
 
     table {
       margin-top: 2rem;
+
+      .view-td {
+        width: 80px;
+      }
+
+      .icon{
+        fill: $primary !important;
+        cursor: pointer;
+        text-align: center;
+      }
+
     }
   }
 

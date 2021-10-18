@@ -3,16 +3,12 @@ import { useState, useEffect } from "react";
 import { Login, Settings, Parcels, EditParcel } from "@pages";
 import { Sidenav } from "@components";
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import { useHistory } from 'react-router-dom';
 
 
 function App() {
 
   const [auth, setAuth] = useState(false);
   const [accountType, setAccountType] = useState();
-
-  const history = useHistory();
-
   useEffect(() => {
     const token = localStorage.getItem("efa_token");
     setAccountType(localStorage.getItem("account_type"));

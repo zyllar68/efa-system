@@ -1,6 +1,5 @@
 import "./style.scss";
 import Logo from "@images/logo.jpg";
-import { useHistory } from 'react-router-dom';
 import { NavLink } from 'react-router-dom';
 import {  ReactComponent as BoxIcon } from "@icons/box.svg";
 import {  ReactComponent as SettingsIcon } from "@icons/settings.svg";
@@ -10,8 +9,6 @@ const Sidenav = ({
   accountType,
   logOut
 }) => {
-
-  const history = useHistory();
 
   const onLogOut = () => {
     logOut();

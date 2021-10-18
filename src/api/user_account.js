@@ -15,6 +15,20 @@ export const authUser = async payload => {
   return res;
 }
 
+export const checkUser = async payload => {
+  const res = await axios({
+    method: 'POST',
+    url: `/users/check`,
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    baseURL: "http://localhost:3001/",
+    data: { payload }
+  });
+
+  return res;
+}
+
 export const readAll = async () => {
   const res = await axios({
     method: 'GET',
@@ -97,6 +111,19 @@ export const updateUser = async payload => {
     },
     baseURL: "http://localhost:3001/",
     data: { payload }
+  });
+
+  return res;
+}
+
+export const deleteUser = async id => {
+  const res = await axios({
+    method: 'delete',
+    url: `/users/${id}`,
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    baseURL: "http://localhost:3001/"
   });
 
   return res;

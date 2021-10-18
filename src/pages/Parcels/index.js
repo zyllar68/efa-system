@@ -36,7 +36,7 @@ const dimensionInitialState = [
   {
     l: '',
     h: '',
-    w: '',
+    w: ''
   }
 ]
 
@@ -101,9 +101,7 @@ const AddModal = ({
     }else {
       newDimension.map(({l, w, h}, i) => {
         let total = (l * w * h) / 3500;
-        if(total > currentHigh){
-          currentHigh = total;
-        }
+        currentHigh+=total;
       });
       setGetVolWeight(currentHigh);
     }
@@ -195,64 +193,79 @@ const AddModal = ({
         </Row>
         <h4 style={{marginTop: '2rem'}}>Parcel Information</h4>
         <Row>
-          <Col md={6}>
-            <Input 
-              label="Declared value"
-              value={state.parcel_info.declared_value}
-              onChange={e => {
-                setErrorMessag('');
-                setState({...state, parcel_info:{...state.parcel_info, declared_value: e.target.value}})
-              }}
-            />
+          <Col md={12}>
+            <Row>
+              <Col md={4}>
+                <Input 
+                  label="Item Description"
+                  value={state.parcel_info.item_description}
+                  onChange={e => {
+                    setErrorMessag('');
+                    setState({...state, parcel_info: {...state.parcel_info, item_description: e.target.value}});
+                  }}
+                />
+              </Col>
+              <Col md={4}>
+                <Input 
+                  label="Declared value"
+                  value={state.parcel_info.declared_value}
+                  onChange={e => {
+                    setErrorMessag('');
+                    setState({...state, parcel_info:{...state.parcel_info, declared_value: e.target.value}})
+                  }}
+                />
+              </Col>
+              <Col md={4}>
+                <Input 
+                  label="COD Amount"
+                  value={state.parcel_info.cod_amount}
+                  onChange={e => {
+                    setErrorMessag('');
+                    setState({...state, parcel_info:{...state.parcel_info, cod_amount: e.target.value}});
+                  }}
+                />
+              </Col>
+            </Row>
           </Col>
-          <Col md={6}>
-            <Input 
-              label="COD Amount"
-              value={state.parcel_info.cod_amount}
-              onChange={e => {
-                setErrorMessag('');
-                setState({...state, parcel_info:{...state.parcel_info, cod_amount: e.target.value}});
-              }}
-            />
-          </Col>
-          <Col md={6}>
-            <Input 
-              label="No. of items"
-              type="number"
-              value={newDimension.length}
-              onChange={e => {
-                setErrorMessag('');
-                setState({...state, parcel_info: {...state.parcel_info, no_of_items: e.target.value}});
-              }}
-              readOnly
-            />
-          </Col>
-          <Col md={6}>
-            <Input 
-              label="Item Description"
-              value={state.parcel_info.item_description}
-              onChange={e => {
-                setErrorMessag('');
-                setState({...state, parcel_info: {...state.parcel_info, item_description: e.target.value}});
-              }}
-            />
-          </Col>
-          <Col md={6}>
-            <Input 
-              label="Total Weight"
-              type="number"
-              value={state.parcel_info.total_weight}
-              onChange={e => {
-                setState({...state, parcel_info: {...state.parcel_info, total_weight: e.target.value}});
-              }}
-            />
-          </Col>
-          <Col md={6}>
-            <Input 
-              label="Volume Weight"
-              value={getVolWeight}
-              readOnly
-            />
+          <Col md={12}>
+            <Row>
+              <Col md={3}>
+                <Input 
+                  label="No. of items"
+                  type="number"
+                  value={newDimension.length}
+                  onChange={e => {
+                    setErrorMessag('');
+                    setState({...state, parcel_info: {...state.parcel_info, no_of_items: e.target.value}});
+                  }}
+                  readOnly
+                />
+              </Col>
+              <Col md={3}>
+                <Input 
+                  label="Total Weight"
+                  type="number"
+                  value={state.parcel_info.total_weight}
+                  onChange={e => {
+                    setState({...state, parcel_info: {...state.parcel_info, total_weight: e.target.value}});
+                  }}
+                />
+              </Col>
+              <Col md={3}>
+                <Input 
+                  label="Volume Weight"
+                  value={getVolWeight}
+                  readOnly
+                />
+              </Col>
+              <Col md={3}>
+                <Input 
+                  label="Chargable Weight"
+                  value={getVolWeight > state.total_weight ? getVolWeight : state.total_weight}
+                  readOnly
+                />
+              </Col>
+            </Row>
           </Col>
           <Col md={12}>
             <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '1rem'}}>

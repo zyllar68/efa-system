@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { Row, Col } from "react-bootstrap";
 import { Input, Button } from "@components";
 import { readParcel,  } from "@api/parcel";
-import { useHistory, useRouteMatch } from 'react-router-dom';
+import { useRouteMatch } from 'react-router-dom';
 import { updateParcel } from "api/parcel";
 
 const initialState = {
@@ -24,7 +24,7 @@ const initialState = {
     no_of_items: '',
     total_weight: '',
     vol_weight: '',
-    chargable_weight: 10,
+    chargable_weight: '',
     dimension: []
   }
 }
@@ -32,8 +32,6 @@ const initialState = {
 const EditParcel = () => {
 
   const match = useRouteMatch();
-  // const history = useHistory();
-  // const account_type = window.localStorage.getItem('efa_token');
 
   const { id } = match.params;
 
@@ -52,6 +50,7 @@ const EditParcel = () => {
         alert('Something went wrong. Please contact your provider.');
       }
     })();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   useEffect(() => {
@@ -101,9 +100,7 @@ const EditParcel = () => {
     }else {
       newDimension.map(({l, w, h}, i) => {
         let total = (l * w * h) / 3500;
-        if(total > currentHigh){
-          currentHigh = total;
-        }
+        currentHigh+=total;
       });
       setGetVolWeight(currentHigh);
     }
@@ -119,11 +116,21 @@ const EditParcel = () => {
     }
   }
 
+  const onPrint = async () => {
+    window.print();
+  }
+
   return (
     <div className="EditParcel">
-      <h2>Edit</h2>
+      <div className="EditParcel__header">
+        <h2>Edit</h2>
+        <Button 
+          primary 
+          title="Print" style={{width: '150px'}}
+          onClick={() => onPrint()} />
+      </div>
       <div className="EditParcel__form">
-        <div style={{display: 'flex', justifyContent: 'space-between'}}>
+        <div className="EditParcel__form-header">
           <h4>Sender information</h4>
           <Button 
             primary 
