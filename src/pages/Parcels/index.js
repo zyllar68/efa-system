@@ -245,6 +245,7 @@ const AddModal = ({
               <Col md={3}>
                 <DropdownInput 
                   label="Status"
+                  options={[]}
                 />
               </Col>
             </Row>
