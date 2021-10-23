@@ -23,6 +23,7 @@ function App() {
   const logOut = () => {
     window.localStorage.removeItem('efa_token');
     window.localStorage.removeItem('account_type');
+    window.localStorage.removeItem('account_name');
     setAuth(false);
   }
 

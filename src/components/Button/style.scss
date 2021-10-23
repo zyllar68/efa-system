@@ -19,3 +19,10 @@
     opacity: .8;
   }
 }
+
+.warning {
+  background-color: $warning;
+  &:hover {
+    opacity: .8;
+  }
+}

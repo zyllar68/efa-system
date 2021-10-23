@@ -28,6 +28,13 @@
     @media print {
       display: none;
     }
+
+    &-text {
+      p{
+        margin: 0;
+        font-size: 12px;
+      }
+    }
   }
 
   &__form{

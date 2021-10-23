@@ -1,0 +1,12 @@
+@import "@styles";
+
+
+select {
+  padding: .5rem;
+  width: 100%;
+  border-radius: 5px;
+  border-color: #c2c2c2 !important;
+  &:focus, &:active, &:checked {
+    border-color: #c2c2c2 !important;
+  }
+}

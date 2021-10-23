@@ -20,6 +20,7 @@ const Login = ({
         const payload = {username, password};
         const res = await authUser(payload);
         window.localStorage.setItem('efa_token', res.data.user_info.token);
+        window.localStorage.setItem('account_name', res.data.user_info.full_name);
         window.localStorage.setItem('account_type', res.data.user_info.account_type);
         setAuth(true);
       } catch (error) {

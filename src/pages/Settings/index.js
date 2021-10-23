@@ -1,6 +1,6 @@
 import "./style.scss";
 import { useState, useEffect } from "react";
-import { TableComponent, Input, Button } from "@components";
+import { TableComponent, Input, Button, AlertBox } from "@components";
 import {Row, Col, Modal} from 'react-bootstrap';
 import { readAdmin, createUser, readAll, readUser, updateAdmin, updateUser, checkUser, deleteUser } from "@api/user_account";
 import { ReactComponent as ViewIcon } from "@icons/viewIcon.svg";
@@ -142,6 +142,9 @@ const Settings = () => {
   const [adminError, setAdminError] = useState('');
   const [filterItem, setFilterItem] = useState('');
 
+  const [confirmModal, setConfirmModal] = useState(false);
+  const [userId, setUserId] = useState('')
+
   useEffect(() => {
     (async function() {
       try {
@@ -262,6 +265,7 @@ const Settings = () => {
   }
 
   const onDeleteUser = async id => {
+    console.log(id)
     try { 
       const res = await deleteUser(id);
       console.log(res.data)
@@ -328,7 +332,10 @@ const Settings = () => {
                       </div>
                     </td>
                     <td className="view-td">
-                      <div className="icon" onClick={() => onDeleteUser(_id)}>
+                      <div className="icon" onClick={() => {
+                        setUserId(_id)
+                        setConfirmModal(true)
+                      }}>
                         <DeleteIcon />
                       </div>
                     </td>
@@ -356,6 +363,14 @@ const Settings = () => {
         setState={setState}
         newUserError={newUserError}
         setNewUserError={setNewUserError}
+      />
+      <AlertBox 
+        show={confirmModal}
+        setCancel={() => setConfirmModal(false)}
+        setConfirm={() => {
+          onDeleteUser(userId);
+          setConfirmModal(false);
+        }}
       />
     </div>
   )

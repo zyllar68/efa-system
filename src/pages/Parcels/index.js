@@ -1,15 +1,19 @@
 import "./style.scss";
 import { useState, useEffect } from "react";
-import { TableComponent, Input, Button } from "@components";
+import { TableComponent, Input, Button, AlertBox, DropdownInput } from "@components";
 import {Row, Col, Modal} from 'react-bootstrap';
-import { createParcel, readAllParcel, } from "@api/parcel";
+import { createParcel, readAllParcel, deleteParcel } from "@api/parcel";
 import { useHistory } from "react-router-dom";
 import { ReactComponent as RemoveIcon } from "@icons/removeIcon.svg";
 import { ReactComponent as AddIcon } from "@icons/addIcon.svg";
+import { ReactComponent as ViewIcon } from "@icons/viewIcon.svg";
+import { ReactComponent as DeleteIcon } from "@icons/deleteIcon.svg";
 
 
-const thData = ["Parcel number", "Sender Name", "Recepient Name", ""];
+const thData = ["Parcel number", "Sender Name", "Recepient Name", "View", "Delete"];
 const initialState =     {
+  lastEditedBy: window.localStorage.getItem('account_name'),
+  createdBy: window.localStorage.getItem('account_name'),
   sender: {
     full_name: '',
     address: '',
@@ -27,7 +31,7 @@ const initialState =     {
     no_of_items: '',
     total_weight: '',
     vol_weight: '',
-    chargable_weight: 10,
+    chargable_weight: '',
     dimension: []
   }
 }
@@ -51,8 +55,8 @@ const AddModal = ({
 }) => {
 
   const [getVolWeight, setGetVolWeight] = useState(0);
-
   const [newDimension, setNewDimension] = useState(dimensionInitialState);
+  const [getChargableWeight, setGetChargableWeight] = useState(0);
 
   useEffect(() => {
     setState(prevState => {
@@ -62,6 +66,7 @@ const AddModal = ({
       }
     });
     totalVolWeight();
+    chargableWeight();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [newDimension]);
 
@@ -69,18 +74,20 @@ const AddModal = ({
     setState(prevState => {
       return{
         ...prevState,
-        parcel_info: { ...prevState.parcel_info, vol_weight: getVolWeight, no_of_items: newDimension.length}
+        parcel_info: { ...prevState.parcel_info, vol_weight: getVolWeight, no_of_items: newDimension.length, chargable_weight: getChargableWeight}
       }
     });
+    chargableWeight();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [getVolWeight]);
 
   const handleChangeInput = (i, e) => {
-    totalVolWeight()
+    totalVolWeight();
+    chargableWeight();
     const values = [...newDimension];
     values[i][e.target.name] = e.target.value;
     setNewDimension(values);
-    setErrorMessag('')
+    setErrorMessag('');
   }
 
   const handleAddField = () => {
@@ -89,6 +96,7 @@ const AddModal = ({
 
   const handleRemoveField = (id) => {
     totalVolWeight();
+    chargableWeight();
     const values = [...newDimension]
     values.splice(id, 1)
     setNewDimension([...values]);
@@ -106,6 +114,15 @@ const AddModal = ({
       setGetVolWeight(currentHigh);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
+  }
+
+  const chargableWeight = () => {
+    if(state.parcel_info.total_weight > getVolWeight){
+      setGetChargableWeight(state.parcel_info.total_weight);
+    }else{
+      console.log(getVolWeight)
+      setGetChargableWeight(getVolWeight);
+    }
   }
 
   return(
@@ -195,7 +212,7 @@ const AddModal = ({
         <Row>
           <Col md={12}>
             <Row>
-              <Col md={4}>
+              <Col md={3}>
                 <Input 
                   label="Item Description"
                   value={state.parcel_info.item_description}
@@ -205,7 +222,7 @@ const AddModal = ({
                   }}
                 />
               </Col>
-              <Col md={4}>
+              <Col md={3}>
                 <Input 
                   label="Declared value"
                   value={state.parcel_info.declared_value}
@@ -215,7 +232,7 @@ const AddModal = ({
                   }}
                 />
               </Col>
-              <Col md={4}>
+              <Col md={3}>
                 <Input 
                   label="COD Amount"
                   value={state.parcel_info.cod_amount}
@@ -223,6 +240,11 @@ const AddModal = ({
                     setErrorMessag('');
                     setState({...state, parcel_info:{...state.parcel_info, cod_amount: e.target.value}});
                   }}
+                />
+              </Col>
+              <Col md={3}>
+                <DropdownInput 
+                  label="Status"
                 />
               </Col>
             </Row>
@@ -261,7 +283,7 @@ const AddModal = ({
               <Col md={3}>
                 <Input 
                   label="Chargable Weight"
-                  value={getVolWeight > state.total_weight ? getVolWeight : state.total_weight}
+                  value={getChargableWeight}
                   readOnly
                 />
               </Col>
@@ -338,6 +360,8 @@ const Parcels = () => {
   const [showAdd, setShowAdd] = useState(false);
   const [addErrorMessage, setAddErrorMessage] = useState('');
   const [filterItem, setFilterItem] = useState('');
+  const [confirmModal, setConfirmModal] = useState(false);
+  const [parcelId, setParcelId] = useState('')
 
 
   useEffect(() => {
@@ -349,7 +373,7 @@ const Parcels = () => {
         alert('Something went wrong. Please contact your provider.');
       }
     })();
-  }, []);
+  }, [parcels]);
 
   const filterItemsList = (arr = []) => {
     let res = [];
@@ -380,6 +404,7 @@ const Parcels = () => {
     }else {
       try {
         const res = await createParcel(state);
+        console.log(res)
         if(res.status === 200){
           setShowAdd(false);
           setState(initialState);
@@ -404,6 +429,16 @@ const Parcels = () => {
   //   }
   //   setShowEdit(true);
   // }
+
+  const onDeleteUser = async id => {
+    try { 
+      const res = await deleteParcel(id);
+      console.log(res.data)
+    } catch (error) {
+      console.log(error);
+      alert('Something went wrong. Please contact your provider.');
+    }
+  }
   
   return (
     <div className="Parcels">
@@ -431,7 +466,14 @@ const Parcels = () => {
                     <td>{values.consignee.full_name}</td>
                     <td style={{color: '#437fc7', cursor: 'pointer', textAlign: 'center'}}
                       onClick={() => history.push(`/${values._id}`)}>
-                      View
+                      <ViewIcon />
+                    </td>
+                    <td style={{color: '#437fc7', cursor: 'pointer', textAlign: 'center'}}
+                      onClick={() => {
+                        setParcelId(values._id);
+                        setConfirmModal(true)
+                      }}>
+                      <DeleteIcon />
                     </td>
                   </tr>
                 );
@@ -448,6 +490,14 @@ const Parcels = () => {
         setState={setState}
         errorMessage={addErrorMessage}
         setErrorMessag={setAddErrorMessage}
+      />
+      <AlertBox 
+        show={confirmModal}
+        setCancel={() => setConfirmModal(false)}
+        setConfirm={() => {
+          onDeleteUser(parcelId);
+          setConfirmModal(false);
+        }}
       />
     </div>
   )

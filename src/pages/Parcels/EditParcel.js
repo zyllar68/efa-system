@@ -6,6 +6,7 @@ import { useRouteMatch, useHistory } from 'react-router-dom';
 import { updateParcel, readParcel } from "api/parcel";
 
 const initialState = {
+  lastEditedBy: '',
   sender: {
     full_name: '',
     address: '',
@@ -38,6 +39,7 @@ const EditParcel = () => {
   const [state, setState] = useState(initialState);
   const [newDimension, setNewDimension] = useState([]);
   const [getVolWeight, setGetVolWeight] = useState(0);
+  const [getChargableWeight, setGetChargableWeight] = useState('');
 
   useEffect(() => {
     (async function() {
@@ -45,7 +47,8 @@ const EditParcel = () => {
         const res = await readParcel(id);
         setState(res.data);
         setNewDimension(res.data.parcel_info.dimension);
-        setGetVolWeight(res.data.parcel_info.vol_weight)
+        setGetVolWeight(res.data.parcel_info.vol_weight);
+        setGetChargableWeight(res.data.parcel_info.chargable_weight);
       } catch (error) {
         alert('Something went wrong. Please contact your provider.');
       }
@@ -68,7 +71,7 @@ const EditParcel = () => {
     setState(prevState => {
       return{
         ...prevState,
-        parcel_info: { ...prevState.parcel_info, vol_weight: getVolWeight, no_of_items: newDimension.length}
+        parcel_info: { ...prevState.parcel_info, vol_weight: getVolWeight, no_of_items: newDimension.length, chargable_weight: getChargableWeight}
       }
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -80,6 +83,7 @@ const EditParcel = () => {
     values[i][e.target.name] = e.target.value;
     setNewDimension(values);
     totalVolWeight();
+    setState({...state, lastEditedBy: window.localStorage.getItem('account_name')});
   }
 
   const handleAddField = () => {
@@ -119,10 +123,14 @@ const EditParcel = () => {
   return (
     <div className="EditParcel">
       <div className="EditParcel__header">
-        <h2>Edit</h2>
+        <div className="EditParcel__header-text">
+          <h2>Edit</h2>
+          <p>Created by: {state.createdBy}</p>
+          <p>Last edited by: {state.lastEditedBy}</p>
+        </div>
         <Button 
           primary 
-          title="Print" style={{width: '150px'}}
+          title="Print" style={{width: '150px', height: '40px'}}
           onClick={() => history.push(`/print/${id}`)} />
       </div>
       <div className="EditParcel__form">
@@ -138,21 +146,30 @@ const EditParcel = () => {
             <Input 
               label="Full name"
               value={state.sender.full_name}
-              onChange={e => setState({...state, sender: { ...state.sender, full_name: e.target.value }})}
+              onChange={e => {
+                setState({...state, sender: { ...state.sender, full_name: e.target.value }});
+                setState({...state, lastEditedBy: window.localStorage.getItem('account_name')});
+              }}
             />
           </Col>
           <Col md={6}>
             <Input 
               label="Contact number"
               value={state.sender.contact_number}
-              onChange={e => setState({...state, sender: { ...state.sender, contact_number: e.target.value }})}
+              onChange={e => {
+                setState({...state, sender: { ...state.sender, contact_number: e.target.value }});
+                setState({...state, lastEditedBy: window.localStorage.getItem('account_name')});
+                }}
             />
           </Col>
           <Col md={12}>
             <Input 
               label="Address"
               value={state.sender.address}
-              onChange={e => setState({...state, sender: { ...state.sender, address: e.target.value }})}
+              onChange={e => {
+                setState({...state, sender: { ...state.sender, address: e.target.value }});
+                setState({...state, lastEditedBy: window.localStorage.getItem('account_name')});
+              }}
             />
           </Col>
         </Row>
@@ -162,21 +179,30 @@ const EditParcel = () => {
             <Input 
               label="Full name"
               value={state.consignee.full_name}
-              onChange={e => setState({...state, consignee: { ...state.consignee, full_name: e.target.value }})}
+              onChange={e => {
+                setState({...state, consignee: { ...state.consignee, full_name: e.target.value }});
+                setState({...state, lastEditedBy: window.localStorage.getItem('account_name')});
+              }}
             />
           </Col>
           <Col md={6}>
             <Input 
               label="Contact number"
               value={state.consignee.contact_number}
-              onChange={e => setState({...state, consignee: { ...state.consignee, contact_number: e.target.value }})}
+              onChange={e => {
+                setState({...state, consignee: { ...state.consignee, contact_number: e.target.value }});
+                setState({...state, lastEditedBy: window.localStorage.getItem('account_name')});
+              }}
             />
           </Col>
           <Col md={12}>
             <Input 
               label="Address"
               value={state.consignee.address}
-              onChange={e => setState({...state, consignee: { ...state.consignee, address: e.target.value }})}
+              onChange={e => {
+                setState({...state, consignee: { ...state.consignee, address: e.target.value }});
+                setState({...state, lastEditedBy: window.localStorage.getItem('account_name')});
+              }}
             />
           </Col>
         </Row>
@@ -186,14 +212,20 @@ const EditParcel = () => {
             <Input 
               label="Declared value"
               value={state.parcel_info.declared_value}
-              onChange={e => setState({...state, parcel_info: { ...state.parcel_info, declared_value: e.target.value }})}
+              onChange={e => {
+                setState({...state, parcel_info: { ...state.parcel_info, declared_value: e.target.value }});
+                setState({...state, lastEditedBy: window.localStorage.getItem('account_name')});
+              }}
             />
           </Col>
           <Col md={6}>
             <Input 
               label="COD Amount"
               value={state.parcel_info.cod_amount}
-              onChange={e => setState({...state, parcel_info: { ...state.parcel_info, cod_amount: e.target.value }})}
+              onChange={e => {
+                setState({...state, parcel_info: { ...state.parcel_info, cod_amount: e.target.value }});
+                setState({...state, lastEditedBy: window.localStorage.getItem('account_name')});
+              }}
             />
           </Col>
           <Col md={6}>
@@ -201,7 +233,10 @@ const EditParcel = () => {
               label="No. of items"
               type="number"
               value={newDimension.length}
-              onChange={e => setState({...state, parcel_info: {...state.parcel_info, no_of_items: e.target.value}})}
+              onChange={e => {
+                setState({...state, parcel_info: {...state.parcel_info, no_of_items: e.target.value}});
+                setState({...state, lastEditedBy: window.localStorage.getItem('account_name')});
+              }}
               readOnly
             />
           </Col>
@@ -209,7 +244,10 @@ const EditParcel = () => {
             <Input 
               label="Item Description"
               value={state.parcel_info.item_description}
-              onChange={e => setState({...state, parcel_info: { ...state.parcel_info, item_description: e.target.value }})}
+              onChange={e => {
+                setState({...state, parcel_info: { ...state.parcel_info, item_description: e.target.value }});
+                setState({...state, lastEditedBy: window.localStorage.getItem('account_name')});
+                }}
             />
           </Col>
           <Col md={6}>
@@ -217,7 +255,10 @@ const EditParcel = () => {
               label="Total Weight"
               type="number"
               value={state.parcel_info.total_weight}
-              onChange={e => setState({...state, parcel_info: {...state.parcel_info, total_weight: e.target.value}})}
+              onChange={e => {
+                setState({...state, parcel_info: {...state.parcel_info, total_weight: e.target.value}});
+                setState({...state, lastEditedBy: window.localStorage.getItem('account_name')});
+              }}
             />
           </Col>
           <Col md={6}>

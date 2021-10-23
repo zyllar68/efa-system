@@ -53,3 +53,16 @@ export const updateParcel = async (id, payload)  => {
 
   return res;
 }
+
+export const deleteParcel = async id => {
+  const res = await axios({
+    method: 'delete',
+    url: `/parcels/${id}`,
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    baseURL: "http://localhost:3001/"
+  });
+
+  return res;
+}
