@@ -39,7 +39,7 @@ function App() {
               accountType={accountType}
               logOut={logOut}
             />
-            <div style={{padding: '3rem', width: '100%'}}>
+            <div style={{padding: '3rem', width: '100%', maxHeight: '100vh', overflow: 'auto'}}>
               {
                 accountType === 2 ?
                 ( <Switch>
