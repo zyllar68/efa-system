@@ -48,7 +48,8 @@ const Print = () => {
         setState(res.data)
         console.log(res.data)
         // setNewDimension(res.data.parcel_info.dimension);
-        // setGetVolWeight(res.data.parcel_info.vol_weight)
+        // setGetVolWeight(res.data.parcel_info.vol_weight);
+        window.print();
       } catch (error) {
         alert('Something went wrong. Please contact your provider.');
       }
@@ -96,32 +97,33 @@ const Print = () => {
                 <div className="ship-date">SHIP DATE: <span>02-04-2021</span></div>
                 <Row>
                   <Col sm={6}>
-                    <h6>SENDER DETAILS</h6>
-                    <p><strong>NAME:</strong>{state.sender.full_name}</p>
-                    <p><strong>ADDRESS:</strong>{state.sender.address}</p>
-                    <p><strong>CONTACT NUMBER:</strong>{state.sender.contact_number}</p>
+                    <h6><strong>SENDER DETAILS</strong></h6>
+                    <p>NAME: <strong>{state.sender.full_name}</strong></p>
+                    <p>ADDRESS: <strong>{state.sender.address}</strong></p>
+                    <p>CONTACT NUMBER: <strong>{state.sender.contact_number}</strong></p>
                   </Col>
                   <Col sm={6}>
-                    <h6>SENDER DETAILS</h6>
-                    <p><strong>NAME:</strong>{state.consignee.full_name}</p>
-                    <p><strong>ADDRESS:</strong>{state.consignee.address}</p>
-                    <p><strong>CONTACT NUMBER:</strong>{state.consignee.contact_number}</p>
+                    <h6><strong>CONSIGNEE DETAILS</strong></h6>
+                    <p>NAME: <strong>{state.consignee.full_name}</strong></p>
+                    <p>ADDRESS: <strong>{state.consignee.address}</strong></p>
+                    <p>CONTACT NUMBER: <strong>{state.consignee.contact_number}</strong></p>
                   </Col>
                   <Col sm={12}>
+                  <h6 style={{marginTop: '1rem'}}><strong>PARCEL INFORMATION</strong></h6>
                     <Row>
                       <Col sm={6}>
-                        <p><strong>ITEM DESCRIPTION:</strong>{state.parcel_info.item_description}</p>
+                        <p>ITEM DESCRIPTION: <strong>{state.parcel_info.item_description}</strong></p>
                       </Col>
                       <Col sm={6}>
-                        <p><strong>DECLARED VALUE:</strong> PHP {state.parcel_info.declared_value} </p>
+                        <p>DECLARED VALUE: PHP <strong>{state.parcel_info.declared_value}</strong></p>
                       </Col>
                       <Col sm={6}>
-                        <p><strong>COD AMOUNT:</strong> PHP {state.parcel_info.cod_amount}  </p>
+                        <p>COD AMOUNT:  PHP <strong>{state.parcel_info.cod_amount}</strong></p>
                       </Col>
-                      <Col sm={6}><p><strong>NO. OF ITEM</strong>  {state.parcel_info.no_of_items} </p></Col>
-                      <Col sm={4}><p><strong>TOTAL WEIGHT:</strong> {state.parcel_info.total_weight} KG </p></Col>
-                      <Col sm={4}><p><strong>VOL. WEIGHT:</strong> {state.parcel_info.vol_weight} </p></Col>
-                      <Col sm={4}><p><strong>CHARGABLE WEIGHT:</strong> {state.parcel_info.chargable_weight} </p></Col>
+                      <Col sm={6}><p>NO. OF ITEM: <strong>{state.parcel_info.no_of_items}</strong></p></Col>
+                      <Col sm={12}><p>VOL. WEIGHT: <strong>{state.parcel_info.vol_weight}</strong></p></Col>
+                      <Col sm={6}><p>TOTAL WEIGHT:  <strong>{state.parcel_info.total_weight}KG</strong></p></Col>
+                      <Col sm={6}><p>CHARGABLE WEIGHT: <strong>{state.parcel_info.chargable_weight}</strong></p></Col>
                       <Col sm={12} style={{marginTop: '.3rem'}}>
                         <p><strong>DIMENSION:</strong> </p>
                         <div>
@@ -200,32 +202,33 @@ const Print = () => {
                 <div className="ship-date">SHIP DATE: <span>02-04-2021</span></div>
                 <Row>
                   <Col sm={6}>
-                    <h6>SENDER DETAILS</h6>
-                    <p><strong>NAME:</strong>{state.sender.full_name}</p>
-                    <p><strong>ADDRESS:</strong>{state.sender.address}</p>
-                    <p><strong>CONTACT NUMBER:</strong>{state.sender.contact_number}</p>
+                    <h6><strong>SENDER DETAILS</strong></h6>
+                    <p>NAME: <strong>{state.sender.full_name}</strong></p>
+                    <p>ADDRESS: <strong>{state.sender.address}</strong></p>
+                    <p>CONTACT NUMBER: <strong>{state.sender.contact_number}</strong></p>
                   </Col>
                   <Col sm={6}>
-                    <h6>SENDER DETAILS</h6>
-                    <p><strong>NAME:</strong>{state.consignee.full_name}</p>
-                    <p><strong>ADDRESS:</strong>{state.consignee.address}</p>
-                    <p><strong>CONTACT NUMBER:</strong>{state.consignee.contact_number}</p>
+                    <h6><strong>CONSIGNEE DETAILS</strong></h6>
+                    <p>NAME: <strong>{state.consignee.full_name}</strong></p>
+                    <p>ADDRESS: <strong>{state.consignee.address}</strong></p>
+                    <p>CONTACT NUMBER: <strong>{state.consignee.contact_number}</strong></p>
                   </Col>
                   <Col sm={12}>
+                  <h6 style={{marginTop: '1rem'}}><strong>PARCEL INFORMATION</strong></h6>
                     <Row>
                       <Col sm={6}>
-                        <p><strong>ITEM DESCRIPTION:</strong>{state.parcel_info.item_description}</p>
+                        <p>ITEM DESCRIPTION: <strong>{state.parcel_info.item_description}</strong></p>
                       </Col>
                       <Col sm={6}>
-                        <p><strong>DECLARED VALUE:</strong> PHP {state.parcel_info.declared_value} </p>
+                        <p>DECLARED VALUE: PHP <strong>{state.parcel_info.declared_value}</strong></p>
                       </Col>
                       <Col sm={6}>
-                        <p><strong>COD AMOUNT:</strong> PHP {state.parcel_info.cod_amount}  </p>
+                        <p>COD AMOUNT:  PHP <strong>{state.parcel_info.cod_amount}</strong></p>
                       </Col>
-                      <Col sm={6}><p><strong>NO. OF ITEM</strong>  {state.parcel_info.no_of_items} </p></Col>
-                      <Col sm={4}><p><strong>TOTAL WEIGHT:</strong> {state.parcel_info.total_weight} KG </p></Col>
-                      <Col sm={4}><p><strong>VOL. WEIGHT:</strong> {state.parcel_info.vol_weight} </p></Col>
-                      <Col sm={4}><p><strong>CHARGABLE WEIGHT:</strong> {state.parcel_info.chargable_weight} </p></Col>
+                      <Col sm={6}><p>NO. OF ITEM: <strong>{state.parcel_info.no_of_items}</strong></p></Col>
+                      <Col sm={12}><p>VOL. WEIGHT: <strong>{state.parcel_info.vol_weight}</strong></p></Col>
+                      <Col sm={6}><p>TOTAL WEIGHT:  <strong>{state.parcel_info.total_weight}KG</strong></p></Col>
+                      <Col sm={6}><p>CHARGABLE WEIGHT: <strong>{state.parcel_info.chargable_weight}</strong></p></Col>
                       <Col sm={12} style={{marginTop: '.3rem'}}>
                         <p><strong>DIMENSION:</strong> </p>
                         <div>

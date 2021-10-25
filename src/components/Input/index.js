@@ -12,7 +12,8 @@ const Input = ({
   name,
   id,
   readOnly,
-  small
+  small,
+  step
 }) => {
   return (
     <div className={classNames("Input", {
@@ -20,7 +21,7 @@ const Input = ({
       "small": small
     })}>
       { label && <label>{label}</label> }
-      <input name={name} id={id} type={type} value={value} placeholder={placeholder} onChange={onChange} readOnly={readOnly}/>
+      <input step={step} name={name} id={id} type={type} value={value} placeholder={placeholder} onChange={onChange} readOnly={readOnly}/>
       {errorMessage && <p>{errorMessage}</p>}
     </div>
   )
