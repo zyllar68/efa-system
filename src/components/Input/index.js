@@ -11,11 +11,13 @@ const Input = ({
   onChange,
   name,
   id,
-  readOnly
+  readOnly,
+  small
 }) => {
   return (
     <div className={classNames("Input", {
-      "dimension-input": dimensionInput
+      "dimension-input": dimensionInput,
+      "small": small
     })}>
       { label && <label>{label}</label> }
       <input name={name} id={id} type={type} value={value} placeholder={placeholder} onChange={onChange} readOnly={readOnly}/>

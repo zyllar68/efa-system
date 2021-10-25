@@ -10,10 +10,12 @@ import { ReactComponent as ViewIcon } from "@icons/viewIcon.svg";
 import { ReactComponent as DeleteIcon } from "@icons/deleteIcon.svg";
 
 
-const thData = ["Parcel number", "Sender Name", "Recepient Name", "View", "Delete"];
+const thDataAdmin = ["Parcel number", "Status", "Sender Name", "Recepient Name", "View", "Delete"];
+const thDataUser = ["Parcel number", "Status", "Sender Name", "Recepient Name", "View",];
 const initialState =     {
   lastEditedBy: window.localStorage.getItem('account_name'),
   createdBy: window.localStorage.getItem('account_name'),
+  shipped_date: '',
   sender: {
     full_name: '',
     address: '',
@@ -32,6 +34,7 @@ const initialState =     {
     total_weight: '',
     vol_weight: '',
     chargable_weight: '',
+    status: '',
     dimension: []
   }
 }
@@ -119,8 +122,8 @@ const AddModal = ({
   const chargableWeight = () => {
     if(state.parcel_info.total_weight > getVolWeight){
       setGetChargableWeight(state.parcel_info.total_weight);
-    }else{
-      console.log(getVolWeight)
+    }
+    if(state.parcel_info.total_weight < getVolWeight){
       setGetChargableWeight(getVolWeight);
     }
   }
@@ -140,8 +143,16 @@ const AddModal = ({
         Add
       </Modal.Header>
       <Modal.Body  style={{maxHeight: '450px', overflow: 'auto'}}>
-        
-        <h4>Sender Infrmation</h4>
+        <div style={{margin: 0}}>
+          <Input 
+            small
+            label="Ship Date"
+            name="full_name"
+            type="date"
+            onChange={e => setState({...state, shipped_date: e.target.value })}
+          />
+        </div>
+        <h4 style={{marginTop: '1rem'}}>Sender Infrmation</h4>
         <Row>
           <Col md={6}>
             <Input 
@@ -245,7 +256,14 @@ const AddModal = ({
               <Col md={3}>
                 <DropdownInput 
                   label="Status"
-                  options={[]}
+                  onChange={e => setState({...state, parcel_info:{...state.parcel_info, status: e.target.value}})}
+                  options={[
+                    {value: "", label: "Select"},
+                    {value: "on_delivery", label: "On Delivery"},
+                    {value: "delivered", label: "Delivered"},
+                    {value: "pending", label: "Pending"},
+                    {value: "HAL", label: "HAL"}
+                  ]}
                 />
               </Col>
             </Row>
@@ -362,7 +380,7 @@ const Parcels = () => {
   const [addErrorMessage, setAddErrorMessage] = useState('');
   const [filterItem, setFilterItem] = useState('');
   const [confirmModal, setConfirmModal] = useState(false);
-  const [parcelId, setParcelId] = useState('')
+  const [parcelId, setParcelId] = useState('');
 
 
   useEffect(() => {
@@ -370,6 +388,7 @@ const Parcels = () => {
       try {
         const res = await readAllParcel();
         setParces(res.data)
+
       } catch (error) {
         alert('Something went wrong. Please contact your provider.');
       }
@@ -384,8 +403,9 @@ const Parcels = () => {
     res = arr.reduce((acc, curr) => {
       const info = curr;
       const nm = patt.test(info._id);
+      const st = patt.test(info.parcel_info.status);
 
-      if (nm === true) {
+      if (nm || st) {
         acc.push(curr);
       }
 
@@ -400,7 +420,7 @@ const Parcels = () => {
       || state.consignee.full_name === '' || state.consignee.address === '' || state.consignee.contact_number === '' 
       || state.parcel_info.item_description === '' || state.parcel_info.declared_value === ''
         || state.parcel_info.cod_amount === '' || state.parcel_info.no_of_items === '' || state.parcel_info.total_weight === '' 
-        || state.parcel_info.vol_weight === 0){
+        || state.parcel_info.vol_weight === 0, state.parcel_info.status === ""){
           setAddErrorMessage('Please input all required fields!')
     }else {
       try {
@@ -446,36 +466,56 @@ const Parcels = () => {
       <h2>Parcels</h2>
       <div className="Parcels__content">
         <div className="Parcels__search">
-          <Input 
-            placeholder="Search parcel number"
-            onChange={e => setFilterItem(e.target.value)}
-          />
+          <div style={{display: 'flex'}}>
+            <Input 
+              label="Search Parcel"
+              placeholder="123456"
+              onChange={e => setFilterItem(e.target.value)}
+            />
+            <div style={{marginLeft: '1rem'}}>
+              <DropdownInput
+                label="Status" 
+                onChange={e => setFilterItem(e.target.value)}
+                options={[
+                  {value: "", label: "All"},
+                  {value: "on_delivery", label: "On Delivery"},
+                  {value: "delivered", label: "Delivered"},
+                  {value: "pending", label: "Pending"},
+                  {value: "HAL", label: "HAL"}
+                ]}
+              />
+            </div>
+          </div>
           <Button 
             primary 
             title="Add" style={{width: '150px'}}
             onClick={() => setShowAdd(true)} />
         </div>
         <TableComponent
-          thData={thData}>
+          thData={window.localStorage.getItem('account_type') === '1' ? thDataAdmin  : thDataUser} >
           <tbody>
             {
               filterItemsList(parcels).map((values, i = 0) => {
                 return(
                   <tr key={i}>
                     <td>{values._id}</td>
+                    <td>{values.parcel_info.status}</td>
                     <td>{values.sender.full_name}</td>
                     <td>{values.consignee.full_name}</td>
                     <td style={{color: '#437fc7', cursor: 'pointer', textAlign: 'center'}}
                       onClick={() => history.push(`/${values._id}`)}>
                       <ViewIcon />
                     </td>
-                    <td style={{color: '#437fc7', cursor: 'pointer', textAlign: 'center'}}
-                      onClick={() => {
-                        setParcelId(values._id);
-                        setConfirmModal(true)
-                      }}>
-                      <DeleteIcon />
-                    </td>
+                    {
+                      window.localStorage.getItem('account_type') === '1' &&
+                      <td style={{color: '#437fc7', cursor: 'pointer', textAlign: 'center'}}
+                        onClick={() => {
+                          setParcelId(values._id);
+                          setConfirmModal(true)
+                        }}>
+                        <DeleteIcon />
+                      </td>
+                    }
                   </tr>
                 );
               })

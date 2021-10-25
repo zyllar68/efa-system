@@ -41,6 +41,7 @@ export const readParcel = async id => {
 }
 
 export const updateParcel = async (id, payload)  => {
+  
   const res = await axios({
     method: 'PUT',
     url: `/parcels/${id}`,

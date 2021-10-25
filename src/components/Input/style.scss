@@ -17,6 +17,12 @@
   }
 }
 
+.small {
+  input {
+    padding: .2rem !important;
+  }
+}
+
 .dimension-input {
   display: flex;
   align-items: center;

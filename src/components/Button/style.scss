@@ -6,6 +6,7 @@
   border-radius: $small;
   color: $white;
   cursor: pointer;
+  height: 2.5rem !important; 
 
   @media print {
     display: none;

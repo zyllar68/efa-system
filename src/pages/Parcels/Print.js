@@ -170,7 +170,7 @@ const Print = () => {
           </div>
         </div>
       </Col>
-      <Col sm={6}>
+      <Col sm={6} md={12}>
         <div className="PrintBody hidden">
           <div className="Print">
             <div className="Print__content">  
@@ -187,11 +187,11 @@ const Print = () => {
                     </div>
                   </Col>
                   <Col sm={1} clasName="qr-code">
-                    <QRCode size="40" value="1278361286318276" />
+                    <QRCode size={40} value={state._id} />
                   </Col>
                   <Col sm={12}>
                     <div className="Print__parcelNum">
-                      1278361286318276
+                      {state._id}
                     </div>
                   </Col>
                 </Row>
@@ -200,55 +200,44 @@ const Print = () => {
                 <div className="ship-date">SHIP DATE: <span>02-04-2021</span></div>
                 <Row>
                   <Col sm={6}>
-                    <h6>CONSIGNEE DETAILS</h6>
-                    <p><strong>NAME:</strong> john doe</p>
-                    <p><strong>ADDRESS:</strong> Purok Leonila, Ipil Heights,</p>
-                    <p><strong>CONTACT NUMBER:</strong> 31232132131</p>
+                    <h6>SENDER DETAILS</h6>
+                    <p><strong>NAME:</strong>{state.sender.full_name}</p>
+                    <p><strong>ADDRESS:</strong>{state.sender.address}</p>
+                    <p><strong>CONTACT NUMBER:</strong>{state.sender.contact_number}</p>
                   </Col>
                   <Col sm={6}>
                     <h6>SENDER DETAILS</h6>
-                    <p><strong>NAME:</strong> john doe</p>
-                    <p><strong>ADDRESS:</strong> Purok Leonila, Ipil Heights, Ipil, Zambonaga Sibugay, Ipil, Zamboanga Sibugay, Philippines</p>
-                    <p><strong>CONTACT NUMBER:</strong> 1232132132132132</p>
+                    <p><strong>NAME:</strong>{state.consignee.full_name}</p>
+                    <p><strong>ADDRESS:</strong>{state.consignee.address}</p>
+                    <p><strong>CONTACT NUMBER:</strong>{state.consignee.contact_number}</p>
                   </Col>
                   <Col sm={12}>
-                    <h6>PARCEL INFORMATION</h6>
                     <Row>
                       <Col sm={6}>
-                        <p><strong>ITEM DESCRIPTION:</strong> FRAME </p>
+                        <p><strong>ITEM DESCRIPTION:</strong>{state.parcel_info.item_description}</p>
                       </Col>
                       <Col sm={6}>
-                        <p><strong>DECLARED VALUE:</strong> PHP 13,300.00 </p>
+                        <p><strong>DECLARED VALUE:</strong> PHP {state.parcel_info.declared_value} </p>
                       </Col>
                       <Col sm={6}>
-                        <p><strong>COD AMOUNT:</strong> PHP 13,300.00  </p>
+                        <p><strong>COD AMOUNT:</strong> PHP {state.parcel_info.cod_amount}  </p>
                       </Col>
-                      <Col sm={6}><p><strong>NO. OF ITEM</strong> 6 BOX </p></Col>
-                      <Col sm={12}>
-                        <Row>
-                          <Col><p><strong>TOTAL WEIGHT:</strong> 250 </p></Col>
-                          <Col><p><strong>VOL. WEIGHT:</strong> 250 </p></Col>
-                          <Col><p><strong>CHARGABLE WEIGHT:</strong> 250 </p></Col>
-                        </Row>
-                      </Col>
+                      <Col sm={6}><p><strong>NO. OF ITEM</strong>  {state.parcel_info.no_of_items} </p></Col>
+                      <Col sm={4}><p><strong>TOTAL WEIGHT:</strong> {state.parcel_info.total_weight} KG </p></Col>
+                      <Col sm={4}><p><strong>VOL. WEIGHT:</strong> {state.parcel_info.vol_weight} </p></Col>
+                      <Col sm={4}><p><strong>CHARGABLE WEIGHT:</strong> {state.parcel_info.chargable_weight} </p></Col>
                       <Col sm={12} style={{marginTop: '.3rem'}}>
                         <p><strong>DIMENSION:</strong> </p>
                         <div>
-                          <Row>
-                            <Col className="small-font" style={{borderBottom: '1px solid black'}}>L:10</Col>
-                            <Col className="small-font" style={{borderBottom: '1px solid black'}}>W:10</Col>
-                            <Col className="small-font" style={{borderBottom: '1px solid black'}}>H:10</Col>
-                          </Row>
-                          <Row>
-                            <Col className="small-font" style={{borderBottom: '1px solid black'}}>L:10</Col>
-                            <Col className="small-font" style={{borderBottom: '1px solid black'}}>W:10</Col>
-                            <Col className="small-font" style={{borderBottom: '1px solid black'}}>H:10</Col>
-                          </Row>
-                          <Row>
-                            <Col className="small-font" style={{borderBottom: '1px solid black'}}>L:10</Col>
-                            <Col className="small-font" style={{borderBottom: '1px solid black'}}>W:10</Col>
-                            <Col className="small-font" style={{borderBottom: '1px solid black'}}>H:10</Col>
-                          </Row>
+                          {
+                            state.parcel_info.dimension.map(({l, w, h}, i) => (
+                              <Row key={i}>
+                                <Col className="small-font" style={{borderBottom: '1px solid black'}}>L: {l}</Col>
+                                <Col className="small-font" style={{borderBottom: '1px solid black'}}>W: {w}</Col>
+                                <Col className="small-font" style={{borderBottom: '1px solid black'}}>H: {h}</Col>
+                              </Row>
+                            ))
+                          }
                         </div>
                       </Col>
                       <Col sm={12}>

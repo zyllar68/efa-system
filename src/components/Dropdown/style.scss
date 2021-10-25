@@ -8,5 +8,6 @@ select {
   border-color: #c2c2c2 !important;
   &:focus, &:active, &:checked {
     border-color: #c2c2c2 !important;
+    outline: 0;
   }
 }

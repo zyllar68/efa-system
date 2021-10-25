@@ -108,7 +108,7 @@
       text-align: center;
       margin-left: 3rem;
       @media print {
-        font-size: 6px;
+        font-size: 12px;
       }
       p{
         margin: 0;
@@ -126,14 +126,14 @@
     &__body {
       h6 {
         @media print {
-          font-size: 8px;
+          font-size: 14px;
         }
       }
       p {
         font-size: 14px;
         margin: 0;
         @media print {
-          font-size: 8px;
+          font-size: 14px;
         }
       }
     }
@@ -151,7 +151,7 @@
     text-decoration: underline;
   }
   @media print {
-    font-size: 8px;
+    font-size: 14px;
     margin-top: .2rem;
   }
 }
@@ -163,7 +163,7 @@
   border: 1px solid black;
   margin-top: 1rem;
   @media print {
-    font-size: 8px;
+    font-size: 14px;
   }
   thead {
     th{
@@ -178,7 +178,7 @@
       padding-left: .5rem;
       @media print {
         padding: 0;
-        font-size: 8px;
+        font-size: 14px;
       }
     }
   }
@@ -192,7 +192,7 @@
 
 .small-font{
   @media print {
-    font-size: 8px;
+    font-size: 14px;
   }
 }
 
