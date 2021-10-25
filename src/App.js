@@ -43,29 +43,15 @@ function App() {
               {
                 accountType === 2 ?
                 ( <Switch>
-                    <Route exact path="/">
-                      <Parcels />
-                    </Route>
-                    <Route path="/print/:id">
-                      <Print />
-                    </Route>
-                    <Route path="/:id">
-                      <EditParcel />
-                    </Route>
+                    <Route exact path="/" component={Parcels} />
+                    <Route path="/print/:id" component={Print} />
+                    <Route path="/:id" component={EditParcel} />
                   </Switch> )
                 :( <Switch>
-                    <Route path="/settings">
-                      <Settings />
-                    </Route>
-                    <Route exact path="/">
-                      <Parcels />
-                    </Route>
-                    <Route path="/print/:id">
-                      <Print />
-                    </Route>
-                    <Route path="/:id">
-                      <EditParcel />
-                    </Route>
+                    <Route path="/settings" component={Settings} />
+                    <Route exact path="/" component={Parcels} />
+                    <Route path="/print/:id" component={Print} />
+                    <Route path="/:id" component={EditParcel} />
                   </Switch> )
               }
             </div>
