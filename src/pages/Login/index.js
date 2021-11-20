@@ -7,11 +7,12 @@ import { authUser } from "@api/user_account";
 const Login = ({
   setAuth
 }) => {
-  const [username, setUsername] = useState('admin');
-  const [password, setPassword] = useState('admin');
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
 
-  const onSubmit = async () => {
+  const onSubmit = async e => {
+    e.preventDefault();
     if(username === '' || password === ''){
       setErrorMessage('Please input your username/password!');
     }else{
@@ -41,6 +42,7 @@ const Login = ({
           </div>
           <div className="col col-span-6">
             <div className="Login__card-title">
+              <form>
               <h2>Login</h2>
               <Input 
                 label="Username"
@@ -58,9 +60,11 @@ const Login = ({
                 <Button 
                   primary
                   title="Login"
+                  type="submit"
                   onClick={onSubmit}
                 />
               </div>
+              </form>
             </div>
           </div>
         </div>
