@@ -8,7 +8,7 @@ export const authUser = async payload => {
     headers: {
       'Content-Type': 'application/json'
     },
-    baseURL: "http://192.168.1.46:3001/",
+    baseURL: "http://192.168.254.109:3001/",
     data: { payload }
   });
 
@@ -22,7 +22,7 @@ export const checkUser = async payload => {
     headers: {
       'Content-Type': 'application/json'
     },
-    baseURL: "http://192.168.1.46:3001/",
+    baseURL: "http://192.168.254.109:3001/",
     data: { payload }
   });
 
@@ -36,7 +36,7 @@ export const readAll = async () => {
     headers: {
       'Content-Type': 'application/json'
     },
-    baseURL: "http://192.168.1.46:3001/"
+    baseURL: "http://192.168.254.109:3001/"
   });
 
   return res;
@@ -51,7 +51,7 @@ export const readAdmin = async ()  => {
     headers: {
       'Content-Type': 'application/json'
     },
-    baseURL: "http://192.168.1.46:3001/",
+    baseURL:  "http://192.168.254.109:3001/"
   });
 
   return res;
@@ -66,7 +66,7 @@ export const updateAdmin = async payload => {
     headers: {
       'Content-Type': 'application/json'
     },
-    baseURL: "http://192.168.1.46:3001/",
+    baseURL: "http://192.168.254.109:3001/",
     data: { payload }
   });
 
@@ -80,7 +80,7 @@ export const readUser = async id => {
     headers: {
       'Content-Type': 'application/json'
     },
-    baseURL: "http://192.168.1.46:3001/",
+    baseURL: "http://192.168.254.109:3001/"
   });
 
   return res;
@@ -94,7 +94,7 @@ export const createUser = async payload => {
     headers: {
       'Content-Type': 'application/json'
     },
-    baseURL: "http://192.168.1.46:3001/",
+    baseURL: "http://192.168.254.109:3001/",
     data: { payload }
   });
 
@@ -109,7 +109,7 @@ export const updateUser = async payload => {
     headers: {
       'Content-Type': 'application/json'
     },
-    baseURL: "http://192.168.1.46:3001/",
+    baseURL: "http://192.168.254.109:3001/",
     data: { payload }
   });
 
@@ -123,7 +123,7 @@ export const deleteUser = async id => {
     headers: {
       'Content-Type': 'application/json'
     },
-    baseURL: "http://192.168.1.46:3001/"
+    baseURL: "http://192.168.254.109:3001/"
   });
 
   return res;
