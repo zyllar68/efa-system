@@ -7,7 +7,7 @@ export const createParcel = async payload => {
     headers: {
       'Content-Type': 'application/json'
     },
-    baseURL: process.env.REACT_APP_API_URI,
+    baseURL: "http://192.168.1.46:3001/",
     data: { payload }
   });
 
@@ -21,7 +21,7 @@ export const readAllParcel = async () => {
     headers: {
       'Content-Type': 'application/json'
     },
-    baseURL: "http://192.168.254.109:3001/"
+    baseURL: "http://192.168.1.46:3001/"
   });
 
   return res;
@@ -34,7 +34,7 @@ export const readParcel = async id => {
     headers: {
       'Content-Type': 'application/json'
     },
-    baseURL: "http://192.168.254.109:3001/"
+    baseURL: "http://192.168.1.46:3001/"
   });
 
   return res;
@@ -48,7 +48,7 @@ export const updateParcel = async (id, payload)  => {
     headers: {
       'Content-Type': 'application/json'
     },
-    baseURL: "http://192.168.254.109:3001/",
+    baseURL: "http://192.168.1.46:3001/",
     data: {payload}
   });
 
@@ -62,7 +62,7 @@ export const deleteParcel = async id => {
     headers: {
       'Content-Type': 'application/json'
     },
-    baseURL: "http://192.168.254.109:3001/"
+    baseURL: "http://192.168.1.46:3001/"
   });
 
   return res;
