@@ -511,7 +511,7 @@ const Parcels = () => {
                 return(
                   <tr key={i}>
                     <td>{values._id}</td>
-                    <td>{values.parcel_info.status}</td>
+                    <td>{values.parcel_info.status === "on_delivery" ? "On Deliver" : values.parcel_info.status}</td>
                     <td>{values.sender.full_name}</td>
                     <td>{values.consignee.full_name}</td>
                     <td style={{color: '#437fc7', cursor: 'pointer', textAlign: 'center'}}
