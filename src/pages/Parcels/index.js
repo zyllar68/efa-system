@@ -427,6 +427,7 @@ const Parcels = () => {
   };
 
   const onSaveParcel = async () => {
+    console.log(state)
     if(state.sender.full_name === '' || state.sender.address === '' || state.sender.contact_number === ''
       || state.consignee.full_name === '' || state.consignee.address === '' || state.consignee.contact_number === '' 
       || state.parcel_info.item_description === '' || state.parcel_info.declared_value === ''
