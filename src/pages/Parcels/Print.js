@@ -74,7 +74,7 @@ const Print = () => {
               <div className="Print__content-header">
                 <Row>
                   <Col sm={1}>
-                    <img src={Logo} alt="efa logo" />
+                    <img height="200" src={Logo} alt="efa logo" />
                   </Col>
                   <Col sm={8}>
                     <div className="Print__headerText">
@@ -84,7 +84,7 @@ const Print = () => {
                     </div>
                   </Col>
                   <Col sm={1} clasName="qr-code">
-                    <QRCode size={40} value={state._id} />
+                    <QRCode size={70} value={state._id} />
                   </Col>
                   <Col sm={12}>
                     <div className="Print__parcelNum">
@@ -123,7 +123,7 @@ const Print = () => {
                       <Col sm={6}><p>NO. OF ITEM: <strong>{state.parcel_info.no_of_items}</strong></p></Col>
                       <Col sm={12}><p>VOL. WEIGHT: <strong>{state.parcel_info.vol_weight}</strong></p></Col>
                       <Col sm={6}><p>TOTAL WEIGHT:  <strong>{state.parcel_info.total_weight}KG</strong></p></Col>
-                      <Col sm={6}><p>CHARGABLE WEIGHT: <strong>{state.parcel_info.chargable_weight}</strong></p></Col>
+                      <Col sm={6}><p>CHARGEABLE WEIGHT: <strong>{state.parcel_info.chargable_weight}</strong></p></Col>
                       <Col sm={12} style={{marginTop: '.3rem'}}>
                         <p><strong>DIMENSION:</strong> </p>
                         <div>
@@ -140,7 +140,7 @@ const Print = () => {
                       </Col>
                       <Col sm={12}>
                         <div style={{border: '1px solid black',paddingTop: '1rem', marginTop: '1rem'}}>
-                          <p style={{textAlign: 'center'}}>RECIPIENT'S SGINATURE OVER PRINTED NAME DATE/TIME</p>
+                          <p style={{textAlign: 'center'}}>RECIPIENT'S SIGNATURE OVER PRINTED NAME DATE/TIME</p>
                         </div>
                       </Col>
                     </Row>
@@ -189,7 +189,7 @@ const Print = () => {
                     </div>
                   </Col>
                   <Col sm={1} clasName="qr-code">
-                    <QRCode size={40} value={state._id} />
+                    <QRCode size={70} value={state._id} />
                   </Col>
                   <Col sm={12}>
                     <div className="Print__parcelNum">
@@ -228,7 +228,7 @@ const Print = () => {
                       <Col sm={6}><p>NO. OF ITEM: <strong>{state.parcel_info.no_of_items}</strong></p></Col>
                       <Col sm={12}><p>VOL. WEIGHT: <strong>{state.parcel_info.vol_weight}</strong></p></Col>
                       <Col sm={6}><p>TOTAL WEIGHT:  <strong>{state.parcel_info.total_weight}KG</strong></p></Col>
-                      <Col sm={6}><p>CHARGABLE WEIGHT: <strong>{state.parcel_info.chargable_weight}</strong></p></Col>
+                      <Col sm={6}><p>CHARGEABLE WEIGHT: <strong>{state.parcel_info.chargable_weight}</strong></p></Col>
                       <Col sm={12} style={{marginTop: '.3rem'}}>
                         <p><strong>DIMENSION:</strong> </p>
                         <div>
@@ -245,7 +245,7 @@ const Print = () => {
                       </Col>
                       <Col sm={12}>
                         <div style={{border: '1px solid black',paddingTop: '1rem', marginTop: '1rem'}}>
-                          <p style={{textAlign: 'center'}}>RECIPIENT'S SGINATURE OVER PRINTED NAME DATE/TIME</p>
+                          <p style={{textAlign: 'center'}}>RECIPIENT'S SIGNATURE OVER PRINTED NAME DATE/TIME</p>
                         </div>
                       </Col>
                     </Row>

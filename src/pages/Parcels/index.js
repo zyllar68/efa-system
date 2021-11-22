@@ -60,6 +60,7 @@ const AddModal = ({
   const [getVolWeight, setGetVolWeight] = useState(0);
   const [newDimension, setNewDimension] = useState(dimensionInitialState);
   const [getChargableWeight, setGetChargableWeight] = useState(0);
+  const [totalWeight, setTotalWeight] = useState(0);
 
   useEffect(() => {
     setState(prevState => {
@@ -83,6 +84,19 @@ const AddModal = ({
     chargableWeight();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [getVolWeight]);
+
+  useEffect(() => {
+    setState( prevState => {
+      return {
+        ...prevState,
+        parcel_info: { ...prevState.parcel_info, total_weight: totalWeight }
+      }
+    });
+    totalVolWeight();
+    chargableWeight();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [totalWeight])
+  
 
   const handleChangeInput = (i, e) => {
     totalVolWeight();
@@ -120,10 +134,9 @@ const AddModal = ({
   }
 
   const chargableWeight = () => {
-    if(state.parcel_info.total_weight > getVolWeight){
-      setGetChargableWeight(state.parcel_info.total_weight);
-    }
-    if(state.parcel_info.total_weight < getVolWeight){
+    if(totalWeight > getVolWeight){
+      setGetChargableWeight(totalWeight);
+    }else {
       setGetChargableWeight(getVolWeight);
     }
   }
@@ -287,9 +300,7 @@ const AddModal = ({
                   label="Total Weight"
                   type="number"
                   value={state.parcel_info.total_weight}
-                  onChange={e => {
-                    setState({...state, parcel_info: {...state.parcel_info, total_weight: e.target.value}});
-                  }}
+                  onChange={e => setTotalWeight(e.target.value)}
                 />
               </Col>
               <Col md={3}>

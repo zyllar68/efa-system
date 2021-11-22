@@ -42,8 +42,9 @@ const EditParcel = () => {
   const [state, setState] = useState(initialState);
   const [newDimension, setNewDimension] = useState([]);
   const [getVolWeight, setGetVolWeight] = useState(0);
-  const [getChargableWeight, setGetChargableWeight] = useState('');
+  const [getChargableWeight, setGetChargableWeight] = useState(0);
   const [readOnlyInput, setReadOnlyInput] = useState(false);
+  const [totalWeight, setTotalWeight] = useState(0);
 
   useEffect(() => {
     (async function() {
@@ -56,6 +57,7 @@ const EditParcel = () => {
         setNewDimension(res.data.parcel_info.dimension);
         setGetVolWeight(res.data.parcel_info.vol_weight);
         setGetChargableWeight(res.data.parcel_info.chargable_weight);
+        setTotalWeight(res.data.parcel_info.total_weight);
         if(accountType === '2') {
           setReadOnlyInput(true);
         }
@@ -85,11 +87,26 @@ const EditParcel = () => {
         parcel_info: { ...prevState.parcel_info, vol_weight: getVolWeight, no_of_items: newDimension.length, chargable_weight: getChargableWeight}
       }
     });
+    totalVolWeight();
     chargableWeight();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [getVolWeight]);
+
+useEffect(() => {
+  setState( prevState => {
+    return {
+      ...prevState,
+      parcel_info: { ...prevState.parcel_info, total_weight: totalWeight }
+    }
+  });
+  totalVolWeight();
+  chargableWeight();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+}, [totalWeight])
+
   
   const handleChangeInput = (i, e) => {
+    totalVolWeight();
     chargableWeight();
     const values = [...newDimension];
     values[i][e.target.name] = e.target.value;
@@ -126,10 +143,9 @@ const EditParcel = () => {
   }
 
   const chargableWeight = () => {
-    if(state.parcel_info.total_weight > getVolWeight){
-      setGetChargableWeight(state.parcel_info.total_weight);
-    }
-    if(state.parcel_info.total_weight < getVolWeight){
+    if(totalWeight > getVolWeight){
+      setGetChargableWeight(totalWeight);
+    }else{
       setGetChargableWeight(getVolWeight);
     }
   }
@@ -137,6 +153,7 @@ const EditParcel = () => {
   const onSave = async () => {
     try {
       const res = await updateParcel(id, state);
+      console.log(state)
       alert(res.data)
     } catch (error) {
       alert('Something went wrong. Please contact your provider.');
@@ -278,8 +295,8 @@ const EditParcel = () => {
             <Input 
               label="Total Weight"
               type="number"
-              value={state.parcel_info.total_weight}
-              onChange={e => setState({...state, lastEditedBy: window.localStorage.getItem('account_name'), parcel_info: {...state.parcel_info, total_weight: e.target.value}})}
+              value={totalWeight}
+              onChange={e => setTotalWeight(e.target.value)}
               readOnly={readOnlyInput}
             />
           </Col>
