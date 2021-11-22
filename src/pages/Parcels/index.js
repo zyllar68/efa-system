@@ -432,7 +432,7 @@ const Parcels = () => {
       || state.consignee.full_name === '' || state.consignee.address === '' || state.consignee.contact_number === '' 
       || state.parcel_info.item_description === '' || state.parcel_info.declared_value === ''
         || state.parcel_info.cod_amount === '' || state.parcel_info.no_of_items === '' || state.parcel_info.total_weight === '' 
-        || state.parcel_info.vol_weight === 0, state.parcel_info.status === ""){
+        || state.parcel_info.vol_weight === 0 || state.parcel_info.status === ""){
           setAddErrorMessage('Please input all required fields!')
     }else {
       try {
