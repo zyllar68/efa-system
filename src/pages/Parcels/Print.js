@@ -7,8 +7,10 @@ import QRCode  from "react-qr-code";
 import { readParcel } from "api/parcel";
 import { useRouteMatch } from 'react-router-dom';
 
+import { format } from 'date-fns'
 const initialState = {
   _id: '',
+  shipped_date: format(new Date(), 'MM-dd-yyyy'),
   sender: {
     full_name: '',
     address: '',
@@ -79,7 +81,7 @@ const Print = () => {
                   <Col sm={8}>
                     <div className="Print__headerText">
                       <p><strong>EFA ENTERPRISES</strong></p>
-                      <p>DOOR #1 Centered Development Bldg. Veterans Ave.,</p>
+                      <p>DOOR #1 Centrade Development Bldg. Veterans Ave.,</p>
                       <p>Zamboanga City</p>
                     </div>
                   </Col>
@@ -94,7 +96,9 @@ const Print = () => {
                 </Row>
               </div>
               <div className="Print__body">
-                <div className="ship-date">SHIP DATE: <span>02-04-2021</span></div>
+                <div className="ship-date">SHIP DATE: 
+                  <span>{format(new Date(state.shipped_date), 'MM-dd-yyyy')}</span>
+                </div>
                 <Row>
                   <Col sm={6}>
                     <h6><strong>SENDER DETAILS</strong></h6>
@@ -121,9 +125,9 @@ const Print = () => {
                         <p>COD AMOUNT:  PHP <strong>{state.parcel_info.cod_amount}</strong></p>
                       </Col>
                       <Col sm={6}><p>NO. OF ITEM: <strong>{state.parcel_info.no_of_items}</strong></p></Col>
-                      <Col sm={12}><p>VOL. WEIGHT: <strong>{state.parcel_info.vol_weight}</strong></p></Col>
+                      <Col sm={12}><p>VOL. WEIGHT: <strong>{parseFloat(state.parcel_info.vol_weight).toFixed(2)}</strong></p></Col>
                       <Col sm={6}><p>TOTAL WEIGHT:  <strong>{state.parcel_info.total_weight}KG</strong></p></Col>
-                      <Col sm={6}><p>CHARGEABLE WEIGHT: <strong>{state.parcel_info.chargable_weight}</strong></p></Col>
+                      <Col sm={6}><p>CHARGEABLE WEIGHT: <strong>{parseFloat(state.parcel_info.chargable_weight).toFixed(2)}</strong></p></Col>
                       <Col sm={12} style={{marginTop: '.3rem'}}>
                         <p><strong>DIMENSION:</strong> </p>
                         <div>
@@ -139,7 +143,7 @@ const Print = () => {
                         </div>
                       </Col>
                       <Col sm={12}>
-                        <div style={{border: '1px solid black',paddingTop: '1rem', marginTop: '1rem'}}>
+                        <div style={{border: '1px solid black',paddingTop: '2rem', marginTop: '1rem'}}>
                           <p style={{textAlign: 'center'}}>RECIPIENT'S SIGNATURE OVER PRINTED NAME DATE/TIME</p>
                         </div>
                       </Col>
@@ -173,18 +177,18 @@ const Print = () => {
         </div>
       </Col>
       <Col sm={6} md={12}>
-        <div className="PrintBody hidden">
+      <div className="PrintBody">
           <div className="Print">
             <div className="Print__content">  
               <div className="Print__content-header">
                 <Row>
                   <Col sm={1}>
-                    <img src={Logo} alt="efa logo" />
+                    <img height="200" src={Logo} alt="efa logo" />
                   </Col>
                   <Col sm={8}>
                     <div className="Print__headerText">
                       <p><strong>EFA ENTERPRISES</strong></p>
-                      <p>DOOR #1 Centered Development Bldg. Veterans Ave.,</p>
+                      <p>DOOR #1 Centrade Development Bldg. Veterans Ave.,</p>
                       <p>Zamboanga City</p>
                     </div>
                   </Col>
@@ -199,7 +203,9 @@ const Print = () => {
                 </Row>
               </div>
               <div className="Print__body">
-                <div className="ship-date">SHIP DATE: <span>02-04-2021</span></div>
+                <div className="ship-date">SHIP DATE: 
+                  <span>{format(new Date(state.shipped_date), 'MM-dd-yyyy')}</span>
+                </div>
                 <Row>
                   <Col sm={6}>
                     <h6><strong>SENDER DETAILS</strong></h6>
@@ -226,9 +232,9 @@ const Print = () => {
                         <p>COD AMOUNT:  PHP <strong>{state.parcel_info.cod_amount}</strong></p>
                       </Col>
                       <Col sm={6}><p>NO. OF ITEM: <strong>{state.parcel_info.no_of_items}</strong></p></Col>
-                      <Col sm={12}><p>VOL. WEIGHT: <strong>{state.parcel_info.vol_weight}</strong></p></Col>
+                      <Col sm={12}><p>VOL. WEIGHT: <strong>{parseFloat(state.parcel_info.vol_weight).toFixed(2)}</strong></p></Col>
                       <Col sm={6}><p>TOTAL WEIGHT:  <strong>{state.parcel_info.total_weight}KG</strong></p></Col>
-                      <Col sm={6}><p>CHARGEABLE WEIGHT: <strong>{state.parcel_info.chargable_weight}</strong></p></Col>
+                      <Col sm={6}><p>CHARGEABLE WEIGHT: <strong>{parseFloat(state.parcel_info.chargable_weight).toFixed(2)}</strong></p></Col>
                       <Col sm={12} style={{marginTop: '.3rem'}}>
                         <p><strong>DIMENSION:</strong> </p>
                         <div>
@@ -244,7 +250,7 @@ const Print = () => {
                         </div>
                       </Col>
                       <Col sm={12}>
-                        <div style={{border: '1px solid black',paddingTop: '1rem', marginTop: '1rem'}}>
+                        <div style={{border: '1px solid black',paddingTop: '2rem', marginTop: '1rem'}}>
                           <p style={{textAlign: 'center'}}>RECIPIENT'S SIGNATURE OVER PRINTED NAME DATE/TIME</p>
                         </div>
                       </Col>

@@ -9,13 +9,15 @@ import { ReactComponent as AddIcon } from "@icons/addIcon.svg";
 import { ReactComponent as ViewIcon } from "@icons/viewIcon.svg";
 import { ReactComponent as DeleteIcon } from "@icons/deleteIcon.svg";
 
+import { format } from 'date-fns'
+
 
 const thDataAdmin = ["Parcel number", "Status", "Sender Name", "Recepient Name", "View", "Delete"];
 const thDataUser = ["Parcel number", "Status", "Sender Name", "Recepient Name", "View",];
 const initialState =     {
   lastEditedBy: window.localStorage.getItem('account_name'),
   createdBy: window.localStorage.getItem('account_name'),
-  shipped_date: '',
+  shipped_date: format(new Date(), 'MM-dd-yyyy'),
   sender: {
     full_name: '',
     address: '',
@@ -156,16 +158,17 @@ const AddModal = ({
         Add
       </Modal.Header>
       <Modal.Body  style={{maxHeight: '450px', overflow: 'auto'}}>
-        <div style={{margin: 0}}>
+        {/* <div style={{margin: 0}}>
           <Input 
             small
             label="Ship Date"
             name="full_name"
             type="date"
-            onChange={e => setState({...state, shipped_date: e.target.value })}
+            value={state.shipped_date}
+            disabled
           />
-        </div>
-        <h4 style={{marginTop: '1rem'}}>Sender Infrmation</h4>
+        </div> */}
+        <h4 style={{marginTop: '1rem'}}>Sender Information</h4>
         <Row>
           <Col md={6}>
             <Input 

@@ -6,9 +6,11 @@ import { useRouteMatch, useHistory } from 'react-router-dom';
 import { updateParcel, readParcel } from "api/parcel";
 import { ReactComponent as DeleteIcon } from "@icons/deleteIcon.svg";
 
+import { format } from 'date-fns'
+
 const initialState = {
   lastEditedBy: '',
-  shipped_date: '',
+  shipped_date: format(new Date(), 'MM-dd-yyyy'),
   sender: {
     full_name: '',
     address: '',
@@ -50,14 +52,10 @@ const EditParcel = () => {
     (async function() {
       try {
         const res = await readParcel(id);
+        console.log(res.data)
         const accountType = window.localStorage.getItem('account_type');
-        console.log(accountType)
         setState(res.data);
-        console.log(res.data);
         setNewDimension(res.data.parcel_info.dimension);
-        setGetVolWeight(res.data.parcel_info.vol_weight);
-        setGetChargableWeight(res.data.parcel_info.chargable_weight);
-        setTotalWeight(res.data.parcel_info.total_weight);
         if(accountType === '2') {
           setReadOnlyInput(true);
         }
@@ -66,52 +64,50 @@ const EditParcel = () => {
       }
     })();
     // eslint-disable-next-line react-hooks/exhaustive-deps
+    console.log(new Date(state.shipped_date), 'MM-dd-yyyy'  )
   }, [])
 
-  useEffect(() => {
-    setState(prevState => {
-      return{
-        ...prevState,
-        parcel_info: { ...prevState.parcel_info, dimension: newDimension, vol_weight: getVolWeight,}
-      }
-    });
-    totalVolWeight();
-    chargableWeight();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [newDimension]);
+  // useEffect(() => {
+  //   setState(prevState => {
+  //     return{
+  //       ...prevState,
+  //       parcel_info: { ...prevState.parcel_info, dimension: newDimension, vol_weight: getVolWeight,}
+  //     }
+  //   });
+  //   // totalVolWeight();
+  //   // chargableWeight();
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [newDimension]);
 
-  useEffect(() => {
-    setState(prevState => {
-      return{
-        ...prevState,
-        parcel_info: { ...prevState.parcel_info, vol_weight: getVolWeight, no_of_items: newDimension.length, chargable_weight: getChargableWeight}
-      }
-    });
-    totalVolWeight();
-    chargableWeight();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [getVolWeight]);
+  // useEffect(() => {
+  //   setState(prevState => {
+  //     return{
+  //       ...prevState,
+  //       parcel_info: { ...prevState.parcel_info, vol_weight: getVolWeight, no_of_items: newDimension.length, chargable_weight: getChargableWeight}
+  //     }
+  //   });
+  //   totalVolWeight();
+  //   chargableWeight();
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [getVolWeight]);
 
-useEffect(() => {
-  setState( prevState => {
-    return {
-      ...prevState,
-      parcel_info: { ...prevState.parcel_info, total_weight: totalWeight }
-    }
-  });
-  totalVolWeight();
-  chargableWeight();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-}, [totalWeight])
+// useEffect(() => {
+//   setState( prevState => {
+//     return {
+//       ...prevState,
+//       parcel_info: { ...prevState.parcel_info, total_weight: totalWeight }
+//     }
+//   });
+//   totalVolWeight();
+//   chargableWeight();
+//   // eslint-disable-next-line react-hooks/exhaustive-deps
+// }, [totalWeight])
 
   
   const handleChangeInput = (i, e) => {
-    totalVolWeight();
-    chargableWeight();
     const values = [...newDimension];
     values[i][e.target.name] = e.target.value;
     setNewDimension(values);
-    totalVolWeight();
     setState({...state, lastEditedBy: window.localStorage.getItem('account_name')});
   }
 
@@ -120,40 +116,39 @@ useEffect(() => {
   }
 
   const handleRemoveField = (id) => {
-    chargableWeight();
-    totalVolWeight();
+    // chargableWeight();
+    // totalVolWeight();
     const values = [...newDimension]
     values.splice(id, 1)
     setNewDimension([...values]);
   }
 
-  const totalVolWeight = () => {
-    chargableWeight();
-    let currentHigh = 0;
-    if(newDimension.length === 0){
-      setGetVolWeight(0)
-    }else {
-      newDimension.map(({l, w, h}, i) => {
-        let total = (l * w * h) / 3500;
-        currentHigh+=total;
-      });
-      setGetVolWeight(currentHigh);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }
+  // const totalVolWeight = () => {
+  //   // chargableWeight();
+  //   let currentHigh = 0;
+  //   if(newDimension.length === 0){
+  //     // setGetVolWeight(0)
+  //   }else {
+  //     newDimension.map(({l, w, h}, i) => {
+  //       let total = (l * w * h) / 3500;
+  //       currentHigh+=total;
+  //     });
+  //     setGetVolWeight(currentHigh);
+  //   }
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }
 
-  const chargableWeight = () => {
-    if(totalWeight > getVolWeight){
-      setGetChargableWeight(totalWeight);
-    }else{
-      setGetChargableWeight(getVolWeight);
-    }
-  }
+  // const chargableWeight = () => {
+  //   if(totalWeight > getVolWeight){
+  //     setGetChargableWeight(totalWeight);
+  //   }else{
+  //     setGetChargableWeight(getVolWeight);
+  //   }
+  // }
 
-  const onSave = async () => {
+  const onSave = async () => {  
     try {
       const res = await updateParcel(id, state);
-      console.log(state)
       alert(res.data)
     } catch (error) {
       alert('Something went wrong. Please contact your provider.');
@@ -180,9 +175,10 @@ useEffect(() => {
               small
               label="Ship Date"
               name="full_name"
-              type="date"
-              value={state.shipped_date}
-              onChange={e => setState({...state, shipped_date: e.target.value })}
+              type="text"
+              value={format(new Date(state.shipped_date), 'MMMM dd yyyy')}
+              disabled
+              // onChange={e => setState({...state, shipped_date: e.target.value })}
             />
           </div>
           <Button 
@@ -295,7 +291,7 @@ useEffect(() => {
             <Input 
               label="Total Weight"
               type="number"
-              value={totalWeight}
+              value={state.parcel_info.total_weight}
               onChange={e => setTotalWeight(e.target.value)}
               readOnly={readOnlyInput}
             />
@@ -303,14 +299,14 @@ useEffect(() => {
           <Col md={4}>
             <Input 
               label="Volume Weight"
-              value={getVolWeight}
+              value={parseFloat(state.parcel_info.vol_weight).toFixed(2)}
               readOnly
             />
           </Col>
           <Col md={4}>
             <Input 
               label="Chargable Weight"
-              value={getChargableWeight}
+              value={state.parcel_info.chargable_weight}
               readOnly
             />
           </Col>
